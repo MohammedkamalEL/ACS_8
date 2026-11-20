@@ -5,7 +5,7 @@ import { usePersonalContacts, useMedicalProfile } from "../hooks/usePersonalData
 import { useActivityLog } from "../hooks/useActivityLog";
 import Icon from "../components/Icon";
 import StateMessage from "../components/StateMessage";
-import Disclaimer from "../components/Disclaimer";
+// import Disclaimer from "../components/Disclaimer";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { buildEmergencyMessage, shareText, smsLink, toTel } from "../utils";
 
@@ -247,7 +247,7 @@ export default function SosPage() {
         </div>
       )}
 
-      <Disclaimer compact />
+      {/* <Disclaimer compact /> */}
     </section>
   );
 }

@@ -12,7 +12,6 @@ import ContactsPage from "./pages/ContactsPage";
 import CategoryPage from "./pages/CategoryPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
-// عنوان التبويب لكل شاشة (يفيد قارئات الشاشة وسجل المتصفح)
 const TITLES = {
   "/": "ساعدني | SOS",
   "/sos": "الطوارئ الآن | ساعدني",
@@ -20,11 +19,9 @@ const TITLES = {
   "/contacts": "جهاتي | ساعدني",
 };
 
-// الهيكل العام: رابط تخطٍّ + حالة الاتصال + تنبيه المؤقت + رأس ثابت + المحتوى + شريط تنقل للهاتف
 export default function App() {
   const { pathname, hash } = useLocation();
 
-  // عند تغيير الشاشة: ضبط العنوان والرجوع لأعلى الصفحة
   useEffect(() => {
     document.title = TITLES[pathname] ?? "ساعدني | SOS";
     const target = hash ? document.getElementById(hash.slice(1)) : null;
@@ -44,7 +41,6 @@ export default function App() {
       <CheckInBanner />
       <Header />
       <main id="main" tabIndex={-1} className="pb-24 outline-none md:pb-10">
-        {/* key: يعيد المحاولة تلقائياً عند الانتقال لشاشة أخرى بعد أي خطأ */}
         <ErrorBoundary key={pathname}>
           <Routes>
             <Route path="/" element={<HomePage />} />

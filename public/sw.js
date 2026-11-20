@@ -1,5 +1,4 @@
-// Service Worker: يخزّن واجهة التطبيق ليعمل بدون إنترنت في الطوارئ.
-// الاستراتيجية: الشبكة أولاً (لأحدث نسخة)، وعند انقطاعها يُستخدم المخزّن.
+
 const CACHE = "sos-saedni-v3";
 const SHELL = ["/", "/index.html", "/favicon.svg", "/icon-192.png", "/icon-512.png", "/manifest.webmanifest"];
 const FONT_HOSTS = ["fonts.googleapis.com", "fonts.gstatic.com"];
@@ -9,15 +8,12 @@ self.addEventListener("install", (event) => {
     (async () => {
       const cache = await caches.open(CACHE);
       await cache.addAll(SHELL);
-      // أول زيارة: الصفحة تُحمَّل قبل أن يتحكم الـ Service Worker بها، فلا تمرّ ملفات JS وCSS عليه.
-      // نخزّنها هنا صراحةً حتى يعمل التطبيق بدون إنترنت من أول زيارة، لا من الزيارة الثانية.
       try {
         const html = await (await fetch("/index.html", { cache: "reload" })).text();
         const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map((m) => m[1]);
         await cache.addAll(assets);
       } catch {
-        /* نتابع بالأساسيات فقط */
-      }
+7      }
       await self.skipWaiting();
     })()
   );
@@ -37,7 +33,6 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
 
-  // خط Tajawal من Google Fonts: المخزّن أولاً ثم التحديث في الخلفية، ليبقى الخط العربي بدون إنترنت
   if (FONT_HOSTS.includes(url.hostname)) {
     event.respondWith(
       caches.match(request).then((hit) => {
@@ -54,7 +49,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // باقي الطلبات: من نفس الموقع فقط
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(

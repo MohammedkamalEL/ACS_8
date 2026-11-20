@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCachedEmergencyTypes, getEmergencyType, getEmergencyTypes } from "../api";
 
-// كل أنواع الطوارئ: loading ثم ready أو error. تبدأ ready فوراً إن كانت البيانات جاهزة.
 export function useEmergencyTypes() {
   const [state, setState] = useState(() => {
     const cached = getCachedEmergencyTypes();
@@ -21,7 +20,6 @@ export function useEmergencyTypes() {
   return state;
 }
 
-// نوع طوارئ واحد: loading ثم ready أو notfound أو error
 export function useEmergencyType(id) {
   const [state, setState] = useState(() => {
     const found = getCachedEmergencyTypes()?.find((t) => t.id === id);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEmergencyTypes } from "../hooks/useEmergencyTypes";
 import SosButton from "../components/SosButton";
 import TypeCard from "../components/TypeCard";
-import Disclaimer from "../components/Disclaimer";
+// import Disclaimer from "../components/Disclaimer";
 import StateMessage from "../components/StateMessage";
 import Icon from "../components/Icon";
 import InstallButton from "../components/InstallButton";
@@ -103,7 +103,7 @@ export default function HomePage() {
           <StateMessage title="لا توجد نتائج مطابقة" hint="جرّب كلمة أخرى، أو اضغط SOS للاتصال السريع." />
         )}
 
-        <Disclaimer />
+        {/* <Disclaimer /> */}
       </section>
     </>
   );

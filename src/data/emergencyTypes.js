@@ -1,6 +1,3 @@
-// بيانات تجريبية فقط.
-// الأرقام هنا وهمية (000-000-00X) ولا تعمل كأرقام طوارئ فعلية.
-// عند الربط بالخدمة الحقيقية تُستبدل هذه البيانات بردّ الـ API من src/api.js.
 
 export const EMERGENCY_TYPES = [
   {
@@ -53,7 +50,7 @@ export const EMERGENCY_TYPES = [
       "لا تواجه المعتدي، ولا تحاول التدخل بمفردك.",
     ],
     contacts: [
-      { id: "police", name: "الشرطة", number: "000-000-005", note: "البلاغات الأمنية العاجلة" },
+      { id: "police", name: "الشرطة", number: "998", note: "البلاغات الأمنية العاجلة" },
       { id: "traffic", name: "حوادث الطرق", number: "000-000-006", note: "الحوادث المرورية" },
     ],
   },
@@ -109,7 +106,7 @@ export const EMERGENCY_TYPES = [
     ],
     contacts: [
       { id: "missing-reports", name: "بلاغات المفقودين", number: "000-000-007", note: "تسجيل البلاغ ومتابعته" },
-      { id: "police-missing", name: "الشرطة", number: "000-000-005", note: "للبلاغات العاجلة" },
+      { id: "police-missing", name: "الشرطة", number: "998", note: "للبلاغات العاجلة" },
     ],
   },
   {

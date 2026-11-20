@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./App.css";
 
-// تسجيل الـ Service Worker في الإنتاج فقط، ليعمل التطبيق بدون إنترنت بعد أول زيارة
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js").catch(() => {

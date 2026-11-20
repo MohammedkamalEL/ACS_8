@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-// يلتقط عرض التثبيت من المتصفح ليُعرض زر "ثبّت التطبيق" في الوقت المناسب
 export function useInstallPrompt() {
   const [promptEvent, setPromptEvent] = useState(null);
 

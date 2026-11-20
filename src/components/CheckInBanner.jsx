@@ -2,13 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useCheckIn } from "../hooks/useCheckIn";
 import Icon from "./Icon";
 
-// شريط تنبيه في كل الصفحات: يظهر عند انتهاء مؤقت "أنا بخير؟" دون تأكيد
-// (حتى لو كان المستخدم في صفحة أخرى أو أعاد فتح التطبيق)
 export default function CheckInBanner() {
   const { expired, confirm } = useCheckIn({ notify: true });
   const { pathname } = useLocation();
 
-  // صفحة المؤقت تعرض التنبيه الكامل بنفسها
   if (!expired || pathname === "/checkin") return null;
 
   return (

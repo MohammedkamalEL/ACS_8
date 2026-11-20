@@ -1,7 +1,6 @@
 import Icon from "./Icon";
 import { cx } from "../utils";
 
-// شعار التطبيق: مربع أحمر بأيقونة الدرع مع الاسم
 export default function Brand({ className }) {
   return (
     <div className={cx("flex items-center gap-2.5", className)}>

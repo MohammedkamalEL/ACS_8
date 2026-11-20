@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react";
 
-// موقع اختياري بضغطة زر: لا يُطلب إلا عندما يضغط المستخدم، ولا يُحفظ ولا يُرسل لأي خادم.
-// الحالات: idle ثم loading ثم ok أو denied أو unavailable أو timeout
+
 export function useGeolocation() {
   const [state, setState] = useState({ status: "idle", coords: null });
 

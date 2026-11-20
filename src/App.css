@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ============ نظام التصميم: الألوان والخط ============ */
 @theme {
   --font-sans: "Tajawal", "Segoe UI", Tahoma, system-ui, sans-serif;
 
@@ -14,7 +13,6 @@
   html {
     -webkit-tap-highlight-color: transparent;
   }
-  /* تركيز واضح لكل عنصر تفاعلي عند التنقل بلوحة المفاتيح */
   :focus-visible {
     outline: 3px solid var(--color-sos);
     outline-offset: 3px;

@@ -1,7 +1,5 @@
 import Icon from "./Icon";
 
-// تنبيه ثابت: هذه النسخة تجريبية وأرقامها وهمية.
-// compact: نسخة مختصرة تظهر في شاشات الاتصال حتى لا يُظن أن الأرقام حقيقية.
 export default function Disclaimer({ compact = false }) {
   return (
     <p

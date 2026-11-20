@@ -12,7 +12,6 @@ const TEXTAREA =
 
 const EMPTY_DRAFT = { name: "", relation: "", phone: "" };
 
-// إدارة جهات الطوارئ الشخصية والبطاقة الطبية، والكل محفوظ على الجهاز فقط
 export default function ContactsPage() {
   const { contacts, addContact, removeContact } = usePersonalContacts();
   const { profile, saveProfile } = useMedicalProfile();
@@ -178,7 +177,6 @@ export default function ContactsPage() {
         )}
       </div>
 
-      {/* البطاقة الطبية */}
       <form onSubmit={handleSaveProfile} className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
         <div>
           <h2 className="font-bold text-stone-900">بطاقتي الطبية</h2>

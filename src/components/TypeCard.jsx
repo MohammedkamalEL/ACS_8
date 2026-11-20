@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Icon from "./Icon";
 import { TONE_CLASSES, cx } from "../utils";
 
-// بطاقة نوع طوارئ واحدة: ضغطة واحدة تنقل إلى الإرشادات وأرقام الاتصال
 export default function TypeCard({ type }) {
   const tone = TONE_CLASSES[type.tone] ?? TONE_CLASSES.sky;
 

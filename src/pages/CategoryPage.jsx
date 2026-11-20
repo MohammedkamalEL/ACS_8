@@ -2,12 +2,11 @@ import { Link, useParams } from "react-router-dom";
 import { useEmergencyType } from "../hooks/useEmergencyTypes";
 import Icon from "../components/Icon";
 import ContactCard from "../components/ContactCard";
-import Disclaimer from "../components/Disclaimer";
+// import Disclaimer from "../components/Disclaimer";
 import { useActivityLog } from "../hooks/useActivityLog";
 import StateMessage from "../components/StateMessage";
 import { TONE_CLASSES, cx, toTel } from "../utils";
 
-// صفحة نوع الطوارئ: الإرشادات المختصرة أولاً، ثم جهات الاتصال المناسبة
 export default function CategoryPage() {
   const { typeId } = useParams();
   const { status, data: type } = useEmergencyType(typeId);
@@ -46,7 +45,6 @@ export default function CategoryPage() {
   }
 
   const tone = TONE_CLASSES[type.tone] ?? TONE_CLASSES.sky;
-  // أهم جهة تُعرض في أعلى الصفحة ليتصل المستخدم قبل أن يقرأ أي شيء
   const primary = type.contacts.find((c) => c.number);
   const others = type.contacts.filter((c) => c !== primary);
 
@@ -108,7 +106,7 @@ export default function CategoryPage() {
         </div>
       )}
 
-      <Disclaimer compact />
+      {/* <Disclaimer compact /> */}
     </section>
   );
 }

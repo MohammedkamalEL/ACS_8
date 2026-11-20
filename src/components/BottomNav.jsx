@@ -3,7 +3,6 @@ import Icon from "./Icon";
 import { cx } from "../utils";
 import { NAV_ITEMS } from "../data/options";
 
-// شريط تنقل سفلي للهاتف: الوصول لأهم الشاشات بإبهام واحد
 export default function BottomNav() {
   return (
     <nav

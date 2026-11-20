@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-// يتابع حالة الاتصال بالإنترنت ويتحدّث تلقائياً
 export function useOnlineStatus() {
   const [online, setOnline] = useState(() => navigator.onLine);
 

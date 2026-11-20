@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-// زر SOS الكبير: ينقل مباشرة إلى شاشة الطوارئ بالاتصالات الأساسية بضغطة واحدة
 export default function SosButton() {
   return (
     <Link

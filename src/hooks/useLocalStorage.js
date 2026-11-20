@@ -1,11 +1,8 @@
 import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 
-// تخزين محلي متزامن بين كل أجزاء التطبيق:
-// أي تغيير يظهر فوراً في كل مكوّن يقرأ نفس المفتاح (وبين تبويبات المتصفح أيضاً).
-// كان كل مكوّن يحتفظ بنسخة خاصة، فيضيع السجل لو سجّل مكوّنان في نفس الصفحة.
-
 const listeners = new Set();
-const memory = new Map(); // احتياطي إن كان التخزين ممتلئاً أو معطّلاً: تبقى البيانات طوال الجلسة
+const memory = new Map();
+
 
 const notify = () => listeners.forEach((l) => l());
 window.addEventListener("storage", notify);
@@ -43,7 +40,6 @@ const parse = (raw, fallback) => {
   }
 };
 
-// حالة مرتبطة بـ localStorage: تُقرأ عند البداية وتُحفظ وتُبثّ عند كل تغيير
 export function useLocalStorage(key, initialValue) {
   const [initial] = useState(initialValue);
   const raw = useSyncExternalStore(subscribe, () => readRaw(key));
@@ -51,7 +47,6 @@ export function useLocalStorage(key, initialValue) {
 
   const update = useCallback(
     (next) => {
-      // نحسب القيمة الجديدة من آخر نسخة محفوظة، لا من نسخة قديمة في هذا المكوّن
       const prev = parse(readRaw(key), initial);
       const resolved = typeof next === "function" ? next(prev) : next;
       writeRaw(key, JSON.stringify(resolved));

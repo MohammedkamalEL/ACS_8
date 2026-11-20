@@ -8,10 +8,8 @@ const EMPTY_PROFILE = {
   medications: "",
 };
 
-// معرّف بسيط يعمل حتى في الاتصال غير الآمن (http)
 const makeId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 
-// جهات اتصال شخصية يضيفها المستخدم ويحفظها على جهازه
 export function usePersonalContacts() {
   const [contacts, setContacts] = useLocalStorage("sos.contacts", []);
 
@@ -23,7 +21,6 @@ export function usePersonalContacts() {
   return { contacts, addContact, removeContact };
 }
 
-// البطاقة الطبية المختصرة للمستخدم، تُعرض للمسعفين عند الحاجة
 export function useMedicalProfile() {
   const [profile, setProfile] = useLocalStorage("sos.profile", EMPTY_PROFILE);
 

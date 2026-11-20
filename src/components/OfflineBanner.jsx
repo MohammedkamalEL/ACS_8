@@ -1,6 +1,5 @@
 import { useOnlineStatus } from "../hooks/useOnlineStatus";
 
-// شريط يظهر عند انقطاع الإنترنت ليطمئن المستخدم أن الأساسيات متاحة
 export default function OfflineBanner() {
   const online = useOnlineStatus();
   if (online) return null;

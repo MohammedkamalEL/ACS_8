@@ -1,6 +1,5 @@
 import Icon from "./Icon";
 
-// رسالة حالة موحّدة: تحميل أو خطأ أو غير موجود
 export default function StateMessage({ tone = "info", title, hint, children }) {
   const styles = {
     info: "border-stone-200 bg-white text-stone-600",

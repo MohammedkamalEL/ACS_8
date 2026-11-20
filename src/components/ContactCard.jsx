@@ -3,13 +3,11 @@ import Icon from "./Icon";
 import { copyText, toTel } from "../utils";
 import { useActivityLog } from "../hooks/useActivityLog";
 
-// جهة اتصال واحدة: اتصال مباشر عند توفر الرقم، ونسخ، ورسالة واضحة عند غيابه
 export default function ContactCard({ contact }) {
   const [copied, setCopied] = useState(false);
   const { record } = useActivityLog();
   const hasNumber = Boolean(contact.number);
 
-  // إعادة حالة النسخ بعد ثانيتين
   useEffect(() => {
     if (!copied) return;
     const timer = setTimeout(() => setCopied(false), 2000);

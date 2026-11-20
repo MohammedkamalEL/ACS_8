@@ -1,7 +1,6 @@
 import Icon from "./Icon";
 import { useInstallPrompt } from "../hooks/useInstallPrompt";
 
-// زر تثبيت التطبيق على الشاشة الرئيسية للهاتف، يظهر فقط عندما يكون التثبيت متاحاً
 export default function InstallButton() {
   const { canInstall, install } = useInstallPrompt();
   if (!canInstall) return null;

@@ -1,7 +1,5 @@
-// دمج أسماء الكلاسات بشكل آمن
 export const cx = (...classes) => classes.filter(Boolean).join(" ");
 
-// ألوان كل نوع طوارئ (كاملة الأسماء حتى يلتقطها Tailwind)
 export const TONE_CLASSES = {
   rose: { chip: "bg-rose-50 text-rose-600 ring-rose-100", bar: "group-hover:border-rose-300" },
   orange: { chip: "bg-orange-50 text-orange-600 ring-orange-100", bar: "group-hover:border-orange-300" },
@@ -12,7 +10,6 @@ export const TONE_CLASSES = {
   lime: { chip: "bg-lime-50 text-lime-700 ring-lime-100", bar: "group-hover:border-lime-300" },
 };
 
-// توحيد النص العربي للبحث: يتجاهل التشكيل والهمزات والتاء المربوطة والألف المقصورة
 export const normalizeArabic = (text = "") =>
   text
     .toLowerCase()
@@ -29,24 +26,19 @@ export const matchesQuery = (type, query) => {
   return normalizeArabic(`${type.title} ${type.description} ${type.keywords ?? ""}`).includes(term);
 };
 
-// رابط خريطة نصي من الإحداثيات (بدون أي مفتاح أو خدمة مدفوعة)
 export const mapsLink = ({ lat, lng }) => `https://maps.google.com/?q=${lat.toFixed(5)},${lng.toFixed(5)}`;
 
-// رابط اتصال مباشر: يُبقي + والأرقام فقط
 export const toTel = (number) => `tel:${number.replace(/[^\d+]/g, "")}`;
 
-// رابط رسالة نصية مع نص جاهز
 export const smsLink = (number, body) =>
   `sms:${number.replace(/[^\d+]/g, "")}?body=${encodeURIComponent(body)}`;
 
-// تحقق بسيط من رقم الهاتف: من 6 إلى 15 رقمًا مع + اختيارية
 export const isValidPhone = (value) => {
   const trimmed = value.trim();
   const digits = trimmed.replace(/\D/g, "");
   return /^\+?[\d\s-]+$/.test(trimmed) && digits.length >= 6 && digits.length <= 15;
 };
 
-// نص رسالة الطوارئ: الموقع المكتوب + رابط الموقع الدقيق (إن وُجد) + البيانات الطبية المختصرة
 export function buildEmergencyMessage({ name, location, coords, profile }) {
   const lines = ["حالة طوارئ!"];
   if (name) lines.push(`الاسم: ${name}`);
@@ -60,7 +52,6 @@ export function buildEmergencyMessage({ name, location, coords, profile }) {
   return lines.join("\n");
 }
 
-// تنسيق العد التنازلي: mm:ss أو h:mm:ss
 export function formatCountdown(ms) {
   const total = Math.max(0, Math.floor(ms / 1000));
   const h = Math.floor(total / 3600);
@@ -70,11 +61,9 @@ export function formatCountdown(ms) {
   return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
 }
 
-// تاريخ ووقت مختصران بالأرقام اللاتينية
 export const formatDateTime = (ms) =>
   new Intl.DateTimeFormat("ar-SD-u-nu-latn", { dateStyle: "medium", timeStyle: "short" }).format(new Date(ms));
 
-// نسخ نص للحافظة، ويعيد true عند النجاح
 export async function copyText(text) {
   try {
     await navigator.clipboard.writeText(text);
@@ -84,8 +73,7 @@ export async function copyText(text) {
   }
 }
 
-// مشاركة النص عبر تطبيقات الهاتف إن أمكن، وإلا نسخه.
-// تعيد: "shared" أو "copied" أو "cancelled" أو "failed"
+
 export async function shareText(text) {
   if (navigator.share) {
     try {

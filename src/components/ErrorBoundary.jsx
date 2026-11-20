@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { EMERGENCY_TYPES } from "../data/emergencyTypes";
 import { toTel } from "../utils";
-import Disclaimer from "./Disclaimer";
+// import Disclaimer from "./Disclaimer";
 
 // خط الدفاع الأخير: لو انهارت أي شاشة بسبب خطأ برمجي، يبقى للمستخدم
 // زر اتصال مباشر بالجهات الأساسية بدل صفحة بيضاء وقت الطوارئ.
@@ -47,7 +47,7 @@ export default class ErrorBoundary extends Component {
         >
           إعادة تحميل التطبيق
         </button>
-        <Disclaimer compact />
+        {/* <Disclaimer compact /> */}
       </section>
     );
   }

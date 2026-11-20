@@ -7,10 +7,8 @@ import Icon from "../components/Icon";
 import { formatCountdown, smsLink, toTel } from "../utils";
 import { CHECKIN_EXTEND_MINUTES, CHECKIN_PRESETS } from "../data/options";
 
-// رسالة جاهزة تُرسل لجهة اتصال عند انتهاء المؤقت
 const ALERT_MESSAGE = "لم أؤكد سلامتي في تطبيق ساعدني بعد انتهاء المؤقت. أرجو أن تتصل بي أو تطمئن عليّ.";
 
-// "أنا بخير؟": تحدد مدة، وإن لم تؤكد سلامتك قبل انتهائها تظهر لك جهات الاتصال فوراً
 export default function CheckInPage() {
   const { deadline, remainingMs, expired, start, confirm, extend } = useCheckIn();
   const { contacts } = usePersonalContacts();
@@ -34,7 +32,6 @@ export default function CheckInPage() {
         أنا بخير؟
       </h1>
 
-      {/* لا يوجد مؤقت: اختر المدة */}
       {!deadline && (
         <div className="space-y-5 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
           <p className="text-stone-700">
@@ -59,7 +56,6 @@ export default function CheckInPage() {
         </div>
       )}
 
-      {/* مؤقت نشط */}
       {active && (
         <div className="space-y-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center shadow-sm">
           <p className="font-semibold text-emerald-800">المؤقت يعمل</p>
@@ -85,7 +81,6 @@ export default function CheckInPage() {
         </div>
       )}
 
-      {/* انتهى الوقت دون تأكيد */}
       {expired && (
         <div role="alert" className="space-y-5 rounded-2xl border-2 border-rose-500 bg-rose-50 p-6 shadow-lg">
           <div className="flex items-start gap-3">

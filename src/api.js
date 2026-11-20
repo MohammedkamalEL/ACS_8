@@ -1,22 +1,10 @@
 import { EMERGENCY_TYPES } from "./data/emergencyTypes";
-
-// طبقة الوصول للبيانات (الوحيدة التي تعرف مصدر البيانات).
-//
-// - بدون VITE_API_URL: تُرجع البيانات المحلية فوراً (بلا تأخير مصطنع، فالسرعة مهمة وقت الطوارئ).
-// - مع VITE_API_URL في ملف .env.local: تجلب من الخادم مرة واحدة وتحتفظ بالنتيجة في الذاكرة.
-// - آخر رد ناجح من الخادم يُحفظ على الجهاز، فيظهر فوراً في الزيارة التالية ثم يتحدّث بهدوء.
-// - إن فشل الخادم أو انقطع الإنترنت: ترجع للنسخة المحفوظة، ثم للبيانات المضمّنة في التطبيق،
-//   فلا تبقى الشاشة فارغة أبداً.
-//
-// شكل الرد المتوقع من الخادم لـ GET {VITE_API_URL}/emergency-types:
-//   [{ id, title, description, keywords?, icon, tone, instructions: [], contacts: [{ id, name, number, note }] }]
-
 const API_URL = import.meta.env.VITE_API_URL;
 const TIMEOUT_MS = 5000;
 
 const STORAGE_KEY = "sos.types";
 
-let cache = null; // آخر قائمة جُلبت بنجاح خلال هذه الجلسة
+let cache = null;
 
 const readStored = () => {
   try {
@@ -35,7 +23,6 @@ const store = (data) => {
   }
 };
 
-// يُستخدم لعرض الشاشة فوراً دون حالة تحميل إن كانت البيانات جاهزة مسبقاً
 export const getCachedEmergencyTypes = () => cache ?? (API_URL ? readStored() : EMERGENCY_TYPES);
 
 async function fetchFromServer() {
@@ -52,7 +39,6 @@ async function fetchFromServer() {
   }
 }
 
-// جلب كل أنواع الطوارئ
 export async function getEmergencyTypes() {
   if (cache) return cache;
   if (!API_URL) return EMERGENCY_TYPES;
@@ -65,7 +51,6 @@ export async function getEmergencyTypes() {
   }
 }
 
-// جلب نوع واحد بالمعرّف، أو null إن لم يوجد
 export async function getEmergencyType(id) {
   const all = await getEmergencyTypes();
   return all.find((t) => t.id === id) ?? null;
