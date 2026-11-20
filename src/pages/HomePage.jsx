@@ -33,10 +33,10 @@ export default function HomePage() {
           className="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-72 max-w-xl rounded-full bg-rose-200/40 blur-3xl"
         />
         <div className="relative">
-          <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-sos shadow-sm ring-1 ring-stone-200">
+          {/* <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-sos shadow-sm ring-1 ring-stone-200">
             <span className="size-1.5 rounded-full bg-sos" />
             تحدٍّ واقعي من السودان
-          </p>
+          </p> */}
           <h1 className="mt-4 text-4xl font-black text-stone-900 sm:text-5xl">ساعدني | SOS</h1>
           <p className="mt-2 text-stone-600">الوصول السريع للمساعدة وقت الطوارئ</p>
           <SosButton />
