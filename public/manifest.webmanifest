@@ -1,0 +1,22 @@
+{
+  "name": "ساعدني | SOS",
+  "short_name": "ساعدني",
+  "description": "الوصول السريع للمساعدة وقت الطوارئ",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f5f0",
+  "theme_color": "#dc2626",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "الطوارئ الآن", "short_name": "الطوارئ", "url": "/sos", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "أنا بخير؟", "short_name": "أنا بخير؟", "url": "/checkin", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "جهاتي", "short_name": "جهاتي", "url": "/contacts", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
