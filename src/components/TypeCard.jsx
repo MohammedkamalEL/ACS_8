@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 import Icon from "./Icon";
 
 export default function TypeCard({ type }) {
-  return (
-    <li className="border-b border-gray-300">
-      <Link to={`/emergency/${type.id}`} className="flex min-h-16 items-center gap-3 px-1 py-3 hover:bg-gray-50">
-        <Icon name={type.icon} className="size-6 shrink-0 text-gray-700" />
-        <span className="min-w-0 flex-1">
-          <span className="block font-bold">{type.title}</span>
-          <span className="block text-sm text-gray-600">{type.description}</span>
-        </span>
-        <Icon name="chevron" className="size-4 shrink-0 text-gray-400" />
-      </Link>
-    </li>
-  );
+return (
+  <li>
+    <Link
+      to={`/emergency/${type.id}`}
+      className="flex h-full flex-col gap-2 rounded-xl border border-gray-300 p-4 hover:border-sos"
+    >
+      <Icon name={type.icon} className="size-7 text-sos" />
+      <span className="font-bold">{type.title}</span>
+      <span className="text-sm text-gray-600">{type.description}</span>
+    </Link>
+  </li>
+);
 }

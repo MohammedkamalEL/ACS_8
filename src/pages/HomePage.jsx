@@ -23,7 +23,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="mx-auto max-w-3xl px-4 pb-8 pt-8">
+      <section className="mx-auto max-w-3xl px-4 pb-8 pt-8 text-center">
         <h1 className="text-3xl font-black">ساعدني | SOS</h1>
         <p className="mt-1 text-gray-600">الوصول السريع للمساعدة وقت الطوارئ</p>
         <SosButton />
@@ -32,10 +32,13 @@ export default function HomePage() {
 
       {needsSetup && (
         <p className="mx-auto mb-6 max-w-3xl px-4 text-sm text-gray-700">
-          {contacts.length === 0 ? "لم تضف جهة طوارئ بعد. " : "بطاقتك الطبية فارغة. "}
+          {contacts.length === 0
+            ? "لم تضف جهة طوارئ بعد. "
+            : "بطاقتك الطبية فارغة. "}
           <Link to="/contacts" className="text-sos underline">
             افتح «جهاتي»
-          </Link> وأكمل بياناتك قبل أن تحتاجها.
+          </Link>{" "}
+          وأكمل بياناتك قبل أن تحتاجها.
         </p>
       )}
 
@@ -44,7 +47,10 @@ export default function HomePage() {
           <h2 className="text-lg font-bold">ما نوع الطوارئ؟</h2>
           <label className="relative block sm:w-64">
             <span className="sr-only">ابحث عن نوع الطوارئ</span>
-            <Icon name="search" className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-gray-500" />
+            <Icon
+              name="search"
+              className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-gray-500"
+            />
             <input
               type="search"
               value={query}
@@ -58,17 +64,24 @@ export default function HomePage() {
         {status === "loading" && (
           <ul className="border-t border-gray-300" aria-label="جاري التحميل">
             {[0, 1, 2, 3].map((i) => (
-              <li key={i} className="h-16 animate-pulse border-b border-gray-300 bg-gray-100" />
+              <li
+                key={i}
+                className="h-16 animate-pulse border-b border-gray-300 bg-gray-100"
+              />
             ))}
           </ul>
         )}
 
         {status === "error" && (
-          <StateMessage tone="error" title="تعذّر تحميل خيارات الطوارئ" hint="حاول تحديث الصفحة." />
+          <StateMessage
+            tone="error"
+            title="تعذّر تحميل خيارات الطوارئ"
+            hint="حاول تحديث الصفحة."
+          />
         )}
 
         {status === "ready" && filtered.length > 0 && (
-          <ul className="border-t border-gray-300">
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {filtered.map((type) => (
               <TypeCard key={type.id} type={type} />
             ))}
@@ -76,9 +89,11 @@ export default function HomePage() {
         )}
 
         {status === "ready" && filtered.length === 0 && (
-          <StateMessage title="لا توجد نتائج مطابقة" hint="جرّب كلمة أخرى، أو اضغط SOS للاتصال السريع." />
+          <StateMessage
+            title="لا توجد نتائج مطابقة"
+            hint="جرّب كلمة أخرى، أو اضغط SOS للاتصال السريع."
+          />
         )}
-
       </section>
     </>
   );
