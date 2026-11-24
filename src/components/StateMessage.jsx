@@ -1,19 +1,13 @@
-import Icon from "./Icon";
+import { cx } from "../utils";
 
 export default function StateMessage({ tone = "info", title, hint, children }) {
-  const styles = {
-    info: "border-stone-200 bg-white text-stone-600",
-    error: "border-rose-200 bg-rose-50 text-rose-700",
-  };
-
   return (
     <div
       role={tone === "error" ? "alert" : "status"}
-      className={`flex flex-col items-center gap-2 rounded-2xl border p-8 text-center ${styles[tone]}`}
+      className={cx("border p-4", tone === "error" ? "border-red-300 bg-red-50 text-red-900" : "border-gray-300 text-gray-700")}
     >
-      <Icon name={tone === "error" ? "alert" : "info"} className="size-7" />
       <p className="font-bold">{title}</p>
-      {hint && <p className="text-sm opacity-80">{hint}</p>}
+      {hint && <p className="mt-1 text-sm">{hint}</p>}
       {children}
     </div>
   );

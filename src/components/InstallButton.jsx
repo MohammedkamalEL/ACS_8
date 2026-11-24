@@ -9,7 +9,7 @@ export default function InstallButton() {
     <button
       type="button"
       onClick={install}
-      className="mt-5 inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-stone-300 bg-white px-4 text-sm font-semibold text-stone-800 shadow-sm transition hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+      className="mt-5 inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-gray-300 bg-white px-4 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gray-200"
     >
       <Icon name="download" className="size-4" />
       ثبّت التطبيق على هاتفك

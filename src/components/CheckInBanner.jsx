@@ -9,7 +9,7 @@ export default function CheckInBanner() {
   if (!expired || pathname === "/checkin") return null;
 
   return (
-    <div role="alert" className="bg-rose-600 px-4 py-3 text-white">
+    <div role="alert" className="bg-red-600 px-4 py-3 text-white">
       <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
         <p className="flex items-center gap-2 font-bold">
           <Icon name="alert" className="size-5 shrink-0" />
@@ -18,14 +18,14 @@ export default function CheckInBanner() {
         <div className="flex gap-2">
           <Link
             to="/checkin"
-            className="rounded-lg bg-white px-3 py-1.5 text-sm font-bold text-rose-700 hover:bg-rose-50"
+            className="rounded-lg bg-white px-3 py-1.5 text-sm font-bold text-red-700 hover:bg-red-50"
           >
             التفاصيل
           </Link>
           <button
             type="button"
             onClick={confirm}
-            className="cursor-pointer rounded-lg border border-white/70 px-3 py-1.5 text-sm font-bold hover:bg-rose-700"
+            className="cursor-pointer rounded-lg border border-white/70 px-3 py-1.5 text-sm font-bold hover:bg-red-700"
           >
             أنا بخير
           </button>

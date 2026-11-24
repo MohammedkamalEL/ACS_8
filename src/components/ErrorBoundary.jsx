@@ -1,10 +1,8 @@
 import { Component } from "react";
 import { EMERGENCY_TYPES } from "../data/emergencyTypes";
 import { toTel } from "../utils";
-// import Disclaimer from "./Disclaimer";
 
-// خط الدفاع الأخير: لو انهارت أي شاشة بسبب خطأ برمجي، يبقى للمستخدم
-// زر اتصال مباشر بالجهات الأساسية بدل صفحة بيضاء وقت الطوارئ.
+// لو انهارت أي شاشة: أزرار اتصال مباشرة بدل صفحة بيضاء
 const FALLBACK_IDS = ["health", "security", "fire"];
 
 export default class ErrorBoundary extends Component {
@@ -26,7 +24,7 @@ export default class ErrorBoundary extends Component {
     return (
       <section role="alert" className="mx-auto max-w-3xl space-y-4 px-4 py-10">
         <h1 className="text-2xl font-black text-sos">حدث خطأ غير متوقع</h1>
-        <p className="text-stone-700">يمكنك الاتصال مباشرة من هنا، أو إعادة تحميل الصفحة.</p>
+        <p className="text-gray-700">يمكنك الاتصال مباشرة من هنا، أو إعادة تحميل الصفحة.</p>
         <ul className="grid gap-3">
           {calls.map((c) => (
             <li key={c.id}>
@@ -43,11 +41,10 @@ export default class ErrorBoundary extends Component {
         <button
           type="button"
           onClick={() => window.location.assign("/")}
-          className="h-12 w-full cursor-pointer rounded-xl border border-stone-300 bg-white font-bold text-stone-800"
+          className="h-12 w-full cursor-pointer rounded-xl border border-gray-300 bg-white font-bold text-gray-800"
         >
           إعادة تحميل التطبيق
         </button>
-        {/* <Disclaimer compact /> */}
       </section>
     );
   }

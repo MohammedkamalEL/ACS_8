@@ -6,9 +6,9 @@ import { isValidPhone, toTel, formatDateTime } from "../utils";
 import { useActivityLog } from "../hooks/useActivityLog";
 
 const INPUT =
-  "h-12 w-full rounded-xl border border-stone-300 bg-white px-4 text-stone-900 placeholder:text-stone-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-rose-100";
+  "h-12 w-full rounded-xl border border-gray-300 bg-white px-4 text-gray-900 placeholder:text-gray-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-red-100";
 const TEXTAREA =
-  "min-h-20 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-rose-100";
+  "min-h-20 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-red-100";
 
 const EMPTY_DRAFT = { name: "", relation: "", phone: "" };
 
@@ -60,37 +60,34 @@ export default function ContactsPage() {
   return (
     <section className="mx-auto max-w-3xl space-y-8 px-4 py-8">
       <header>
-        <h1 className="text-3xl font-black text-stone-900">جهاتي</h1>
-        {/* <p className="mt-1 text-stone-600">
-          بياناتك محفوظة على هذا الجهاز فقط، ولا تُرسل إلى أي جهة.
-        </p> */}
+        <h1 className="text-3xl font-black text-gray-900">جهاتي</h1>
+        {/* <p className="mt-1 text-sm text-gray-600">بياناتك محفوظة على هذا الجهاز فقط ولا تُرسل إلى أي جهة.</p> */}
       </header>
 
-      {/* جهات الطوارئ الشخصية */}
-      <div className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+      <div className="space-y-4 rounded-2xl border border-gray-200 bg-white p-5">
         <div>
-          <h2 className="font-bold text-stone-900">أشخاص تثق بهم</h2>
-          <p className="text-sm text-stone-600">
+          <h2 className="font-bold text-gray-900">أشخاص تثق بهم</h2>
+          <p className="text-sm text-gray-600">
             تظهر أولاً في شاشة الطوارئ ({contacts.length} من {MAX_PERSONAL_CONTACTS})
           </p>
         </div>
 
         {contacts.length > 0 && (
-          <ul className="divide-y divide-stone-100">
+          <ul className="divide-y divide-gray-100">
             {contacts.map((c) => (
               <li key={c.id} className="flex items-center justify-between gap-3 py-3">
                 <div className="min-w-0">
-                  <p className="truncate font-bold text-stone-900">
+                  <p className="truncate font-bold text-gray-900">
                     {c.name}
-                    {c.relation && <span className="ms-2 text-sm font-normal text-stone-600">({c.relation})</span>}
+                    {c.relation && <span className="ms-2 text-sm font-normal text-gray-600">({c.relation})</span>}
                   </p>
-                  <p dir="ltr" className="font-mono text-sm text-stone-700">{c.phone}</p>
+                  <p dir="ltr" className="font-mono text-sm text-gray-700">{c.phone}</p>
                 </div>
                 <div className="flex shrink-0 gap-2">
                   <a
                     href={toTel(c.phone)}
                     aria-label={`اتصل بـ${c.name}`}
-                    className="inline-flex size-11 items-center justify-center rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+                    className="inline-flex size-11 items-center justify-center rounded-xl bg-green-600 text-white hover:bg-green-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-200"
                   >
                     <Icon name="phone" className="size-5" />
                   </a>
@@ -98,7 +95,7 @@ export default function ContactsPage() {
                     type="button"
                     onClick={() => removeContact(c.id)}
                     aria-label={`حذف ${c.name}`}
-                    className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl border border-stone-300 text-stone-700 hover:bg-rose-50 hover:text-rose-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+                    className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl border border-gray-300 text-gray-700 hover:bg-red-50 hover:text-red-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gray-200"
                   >
                     <Icon name="trash" className="size-5" />
                   </button>
@@ -109,17 +106,17 @@ export default function ContactsPage() {
         )}
 
         {contacts.length < MAX_PERSONAL_CONTACTS && (
-          <form onSubmit={handleAdd} noValidate className="grid gap-3 border-t border-stone-100 pt-4 sm:grid-cols-2">
+          <form onSubmit={handleAdd} noValidate className="grid gap-3 border-t border-gray-100 pt-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-stone-700">الاسم</span>
+              <span className="mb-1.5 block text-sm font-medium text-gray-700">الاسم</span>
               <input className={INPUT} value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} placeholder="مثال: أمي" />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-stone-700">صلة القرابة (اختياري)</span>
+              <span className="mb-1.5 block text-sm font-medium text-gray-700">صلة القرابة (اختياري)</span>
               <input className={INPUT} value={draft.relation} onChange={(e) => setDraft({ ...draft, relation: e.target.value })} placeholder="مثال: الأم" />
             </label>
             <label className="block sm:col-span-2">
-              <span className="mb-1.5 block text-sm font-medium text-stone-700">رقم الهاتف</span>
+              <span className="mb-1.5 block text-sm font-medium text-gray-700">رقم الهاتف</span>
               <input
                 className={INPUT}
                 dir="ltr"
@@ -130,13 +127,13 @@ export default function ContactsPage() {
               />
             </label>
             {error && (
-              <p role="alert" className="text-sm font-semibold text-rose-700 sm:col-span-2">
+              <p role="alert" className="text-sm font-semibold text-red-700 sm:col-span-2">
                 {error}
               </p>
             )}
             <button
               type="submit"
-              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-stone-900 font-bold text-white hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-300 sm:col-span-2"
+              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-gray-900 font-bold text-white hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gray-300 sm:col-span-2"
             >
               <Icon name="plus" className="size-5" />
               إضافة الشخص
@@ -145,30 +142,29 @@ export default function ContactsPage() {
         )}
       </div>
 
-      {/* سجل الإجراءات على هذا الجهاز */}
-      <div className="space-y-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+      <div className="space-y-3 rounded-2xl border border-gray-200 bg-white p-5">
         <div className="flex items-center justify-between">
-          <h2 className="font-bold text-stone-900">سجل الطوارئ على هذا الجهاز</h2>
+          <h2 className="font-bold text-gray-900">سجل الطوارئ على هذا الجهاز</h2>
           {log.length > 0 && (
             <button
               type="button"
               onClick={clearLog}
-              className="cursor-pointer text-sm font-semibold text-rose-700 hover:underline"
+              className="cursor-pointer text-sm font-semibold text-red-700 hover:underline"
             >
               مسح السجل
             </button>
           )}
         </div>
         {log.length === 0 ? (
-          <p className="text-sm text-stone-600">لا توجد إجراءات مسجّلة بعد.</p>
+          <p className="text-sm text-gray-600">لا توجد إجراءات مسجّلة بعد.</p>
         ) : (
-          <ul className="divide-y divide-stone-100">
+          <ul className="divide-y divide-gray-100">
             {log.slice(0, 10).map((entry) => (
               <li key={entry.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
-                <span className="font-semibold text-stone-900">
+                <span className="font-semibold text-gray-900">
                   {LOG_LABELS[entry.type] ?? entry.type}: {entry.label}
                 </span>
-                <time dateTime={new Date(entry.at).toISOString()} className="shrink-0 text-xs text-stone-600">
+                <time dateTime={new Date(entry.at).toISOString()} className="shrink-0 text-xs text-gray-600">
                   {formatDateTime(entry.at)}
                 </time>
               </li>
@@ -177,19 +173,19 @@ export default function ContactsPage() {
         )}
       </div>
 
-      <form onSubmit={handleSaveProfile} className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+      <form onSubmit={handleSaveProfile} className="space-y-4 rounded-2xl border border-gray-200 bg-white p-5">
         <div>
-          <h2 className="font-bold text-stone-900">بطاقتي الطبية</h2>
-          <p className="text-sm text-stone-600">تُعرض للمسعفين في شاشة الطوارئ. اكتب ما تعرفه فقط، والباقي اختياري.</p>
+          <h2 className="font-bold text-gray-900">بطاقتي الطبية</h2>
+          <p className="text-sm text-gray-600">تُعرض للمسعفين في شاشة الطوارئ. اكتب ما تعرفه فقط، والباقي اختياري.</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-stone-700">الاسم الكامل</span>
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">الاسم الكامل</span>
             <input className={INPUT} value={form.name} onChange={updateForm("name")} />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-stone-700">فصيلة الدم</span>
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">فصيلة الدم</span>
             <select className={INPUT} value={form.bloodType} onChange={updateForm("bloodType")}>
               <option value="">غير معروفة</option>
               {BLOOD_TYPES.map((b) => (
@@ -198,15 +194,15 @@ export default function ContactsPage() {
             </select>
           </label>
           <label className="block sm:col-span-2">
-            <span className="mb-1.5 block text-sm font-medium text-stone-700">الحساسية</span>
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">الحساسية</span>
             <textarea className={TEXTAREA} value={form.allergies} onChange={updateForm("allergies")} placeholder="مثال: البنسلين، المكسرات" />
           </label>
           <label className="block sm:col-span-2">
-            <span className="mb-1.5 block text-sm font-medium text-stone-700">حالات مزمنة</span>
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">حالات مزمنة</span>
             <textarea className={TEXTAREA} value={form.conditions} onChange={updateForm("conditions")} placeholder="مثال: السكري، الضغط" />
           </label>
           <label className="block sm:col-span-2">
-            <span className="mb-1.5 block text-sm font-medium text-stone-700">أدوية مستمرة</span>
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">أدوية مستمرة</span>
             <textarea className={TEXTAREA} value={form.medications} onChange={updateForm("medications")} placeholder="مثال: الإنسولين صباحًا" />
           </label>
         </div>
@@ -214,13 +210,13 @@ export default function ContactsPage() {
         <div className="flex items-center gap-3">
           <button
             type="submit"
-            className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-sos px-6 font-bold text-white hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200"
+            className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-sos px-6 font-bold text-white hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-200"
           >
             <Icon name="save" className="size-5" />
             حفظ البطاقة
           </button>
           {saved && (
-            <span role="status" className="text-sm font-semibold text-emerald-700">
+            <span role="status" className="text-sm font-semibold text-green-700">
               تم الحفظ
             </span>
           )}

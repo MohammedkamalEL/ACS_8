@@ -22,15 +22,15 @@ export default function ContactCard({ contact }) {
   };
 
   return (
-    <li className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+    <li className="rounded-2xl border border-gray-200 bg-white p-4">
       <div>
-        <p className="text-lg font-bold text-stone-900">{contact.name}</p>
-        <p className="mt-0.5 text-sm text-stone-600">{contact.note}</p>
+        <p className="text-lg font-bold text-gray-900">{contact.name}</p>
+        <p className="mt-0.5 text-sm text-gray-600">{contact.note}</p>
       </div>
 
       {hasNumber ? (
         <div className="mt-4 space-y-3">
-          <p dir="ltr" className="font-mono text-2xl font-bold tabular-nums tracking-wide text-stone-900">
+          <p dir="ltr" className="font-mono text-2xl font-bold tabular-nums tracking-wide text-gray-900">
             {contact.number}
           </p>
           <div className="grid grid-cols-2 gap-2">
@@ -38,7 +38,7 @@ export default function ContactCard({ contact }) {
               href={toTel(contact.number)}
               onClick={() => record("call", contact.name)}
               aria-label={`اتصل بـ${contact.name}`}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-sos font-bold text-white shadow-sm transition hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-sos font-bold text-white hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-200"
             >
               <Icon name="phone" className="size-5" />
               اتصل الآن
@@ -46,7 +46,7 @@ export default function ContactCard({ contact }) {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white font-semibold text-stone-800 transition hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gray-200"
             >
               <Icon name={copied ? "check" : "copy"} className="size-4" />
               {copied ? "تم النسخ" : "نسخ الرقم"}
@@ -57,10 +57,11 @@ export default function ContactCard({ contact }) {
           </span>
         </div>
       ) : (
-        <p className="mt-4 flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">
-          <Icon name="info" className="mt-0.5 size-4 shrink-0" />
-          لا يتوفر رقم مباشر، اتبع الإرشادات أعلاه.
-        </p>
+        // <p className="mt-4 flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">
+        //   <Icon name="info" className="mt-0.5 size-4 shrink-0" />
+        //   لا يتوفر رقم مباشر، اتبع الإرشادات أعلاه.
+          // </p>
+          <p></p>
       )}
     </li>
   );

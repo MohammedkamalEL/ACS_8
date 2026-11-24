@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Tajawal", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --font-sans: system-ui, "Segoe UI", Tahoma, "Noto Sans Arabic", sans-serif;
 
-  --color-canvas: #f7f5f0;
+  --color-canvas: #ffffff;
   --color-sos: #dc2626;
-  --color-sos-dark: #991b1b;
-  --color-ink: #1c1917;
+  --color-sos-dark: #b91c1c;
+
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.25rem;
+  --radius-2xl: 0.375rem;
 }
 
 @layer base {
@@ -18,7 +21,7 @@
     outline-offset: 3px;
   }
   body {
-    @apply bg-canvas font-sans text-stone-800 antialiased;
+    @apply bg-canvas font-sans text-gray-900 antialiased;
   }
 }
 

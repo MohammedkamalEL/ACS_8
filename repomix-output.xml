@@ -1,0 +1,2604 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+public/
+  favicon.svg
+  icon-192.png
+  icon-512.png
+  manifest.webmanifest
+  sw.js
+src/
+  components/
+    BottomNav.jsx
+    Brand.jsx
+    CheckInBanner.jsx
+    ContactCard.jsx
+    Disclaimer.jsx
+    ErrorBoundary.jsx
+    Header.jsx
+    Icon.jsx
+    InstallButton.jsx
+    OfflineBanner.jsx
+    SosButton.jsx
+    StateMessage.jsx
+    TypeCard.jsx
+  data/
+    emergencyTypes.js
+    options.js
+  hooks/
+    useActivityLog.js
+    useCheckIn.js
+    useEmergencyTypes.js
+    useGeolocation.js
+    useInstallPrompt.js
+    useLocalStorage.js
+    useOnlineStatus.js
+    usePersonalData.js
+  pages/
+    CategoryPage.jsx
+    CheckInPage.jsx
+    ContactsPage.jsx
+    HomePage.jsx
+    NotFoundPage.jsx
+    SosPage.jsx
+  api.js
+  App.css
+  App.jsx
+  main.jsx
+  utils.js
+.dockerignore
+.env.example
+.gitignore
+eslint.config.js
+index.html
+package.json
+README.md
+vite.config.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="public/favicon.svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#dc2626"/><text x="32" y="40" font-size="19" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif">SOS</text></svg>
+</file>
+
+<file path="public/manifest.webmanifest">
+{
+  "name": "ساعدني | SOS",
+  "short_name": "ساعدني",
+  "description": "الوصول السريع للمساعدة وقت الطوارئ",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f5f0",
+  "theme_color": "#dc2626",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "الطوارئ الآن", "short_name": "الطوارئ", "url": "/sos", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "أنا بخير؟", "short_name": "أنا بخير؟", "url": "/checkin", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "جهاتي", "short_name": "جهاتي", "url": "/contacts", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
+</file>
+
+<file path="src/pages/NotFoundPage.jsx">
+import { Link } from "react-router-dom";
+import StateMessage from "../components/StateMessage";
+
+export default function NotFoundPage() {
+  return (
+    <section className="mx-auto max-w-3xl px-4 py-16">
+      <StateMessage tone="error" title="الصفحة غير موجودة" hint="ربما الرابط غير صحيح.">
+        <Link to="/" className="mt-2 font-semibold text-sos hover:underline">
+          العودة إلى الرئيسية
+        </Link>
+      </StateMessage>
+    </section>
+  );
+}
+</file>
+
+<file path=".dockerignore">
+node_modules
+backend/node_modules
+dist
+.env
+backend/.env
+.git
+</file>
+
+<file path=".env.example">
+# عنوان الـ API للواجهة. نفس الخادم: /api   |   خادم منفصل: https://your-api.example.com/api
+VITE_API_URL=http://localhost:3000/api
+</file>
+
+<file path=".gitignore">
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.local
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.sw?
+</file>
+
+<file path="eslint.config.js">
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
+
+export default defineConfig([
+  globalIgnores(["dist", "backend"]),
+  {
+    files: ["**/*.{js,jsx}"],
+    extends: [js.configs.recommended, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+]);
+</file>
+
+<file path="package.json">
+{
+  "name": "sos-saedni",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
+    "tailwindcss": "^4.3.5",
+    "vite": "^8.3.6"
+  }
+}
+</file>
+
+<file path="README.md">
+# ساعدني | SOS
+
+واجهة ويب تجريبية تساعد الشخص وقت الطوارئ على الوصول إلى الجهة المناسبة بأقل عدد من الخطوات.
+
+الفكرة: من الصفحة الرئيسية يضغط المستخدم زر **SOS** أو يختار نوع الطوارئ، فيظهر له مباشرة الإرشاد المختصر وأرقام الجهات المناسبة مع زر اتصال مباشر.
+
+> الأرقام في هذه النسخة وهمية (`000-000-00X`) ولا تعمل كأرقام طوارئ فعلية.
+
+## الميزات
+
+- زر SOS كبير في الصفحة الرئيسية يفتح شاشة **الطوارئ الآن** فيها اتصال بالإسعاف والشرطة والإطفاء بضغطة واحدة.
+- يعمل التطبيق بدون إنترنت من أول زيارة، بما فيه الخط العربي (Service Worker وملف Manifest، يُفعّلان في نسخة الإنتاج فقط). وتوجد اختصارات على أيقونة التطبيق: الطوارئ الآن، أنا بخير؟، جهاتي.
+- **جهات طوارئ شخصية** (حتى 5 أشخاص): تظهر أولاً في شاشة الطوارئ مع اتصال ورسالة نصية جاهزة.
+- **البطاقة الطبية:** فصيلة الدم والحساسية والحالات المزمنة والأدوية، تُعرض للمسعفين في شاشة الطوارئ.
+- **مشاركة رسالة الطوارئ** تتضمن الموقع المكتوب والبيانات الطبية، مع **معاينة** للنص قبل الإرسال، وتُرسل عبر تطبيقات الهاتف أو تُنسخ.
+- **موقع دقيق اختياري:** زر "أضف موقعي الدقيق" يضيف رابط خريطة للرسالة. لا يُطلب الإذن إلا عند الضغط، ولا يُحفظ، وإن رُفض أو تعذّر يبقى الموقع المكتوب بالكلمات.
+- **بحث** سريع بين أنواع الطوارئ يتجاهل الهمزات والتشكيل ويفهم كلمات مثل: عقرب، موتر، نار.
+- **زر اتصال في أعلى كل نوع:** أهم جهة (مثل الإسعاف) تظهر قبل الإرشادات، فيتصل المستخدم بضغطة واحدة دون تمرير.
+- **بطاقة "جهّز نفسك"** في الرئيسية تظهر حتى يضيف المستخدم جهة موثوقة وبطاقته الطبية.
+- **مؤقت "أنا بخير؟":** تحدد 15 أو 30 أو 60 دقيقة، وإن انتهى الوقت دون تأكيد تظهر جهات الطوارئ الشخصية والطوارئ الرسمية. المؤقت يبقى بعد إعادة تحميل الصفحة، ويمكن تمديده 15 دقيقة. عند الانتهاء يهتز الجهاز ويظهر **شريط تنبيه في كل الصفحات**، مع رسالة جاهزة لجهة الاتصال. وهو تذكير على الجهاز فقط، ويحتاج بقاء التطبيق مفتوحًا، ولا يُرسل تنبيهًا تلقائيًا لأحد.
+- **سجل الطوارئ:** يسجّل الاتصالات والرسائل والمشاركات والمؤقتات على الجهاز، ويمكن مسحه من صفحة "جهاتي".
+- **تنبيه انقطاع الإنترنت** يطمئن المستخدم أن الإرشادات وجهات الاتصال متاحة.
+- **تثبيت التطبيق** على الشاشة الرئيسية للهاتف عندما يتيحه المتصفح.
+- **شريط تنقل سفلي** على الهاتف، وروابط تنقل في الرأس على الحاسوب، وزر SOS دائم في رأس الهاتف.
+- **شاشة بديلة عند الأخطاء:** لو تعطلت أي شاشة تظهر أزرار اتصال مباشرة بدل صفحة بيضاء.
+- **الخصوصية:** كل البيانات الشخصية تُحفظ على الجهاز فقط (localStorage) ولا تُرسل إلى أي خادم.
+- إتاحة محسّنة: رابط تخطٍّ للمحتوى، تركيز واضح لكل عنصر، أزرار بحجم مناسب للمس، وتوقف الحركات لمن يفضّل تقليلها.
+- سبعة أنواع طوارئ: حالة صحية، حريق أو تسرب غاز، أمن وشرطة، حادث مروري، لدغة أو تسمم، شخص مفقود، ومساعدة أخرى.
+- لكل نوع: إرشادات مختصرة مرقّمة، ثم جهات اتصال.
+- زر **اتصل الآن** يفتح الاتصال مباشرة (`tel:`) عند توفر الرقم.
+- زر **نسخ الرقم** مع تأكيد بصري.
+- عند غياب الرقم تظهر رسالة توجّه المستخدم إلى الإرشاد بدل ترك الشاشة فارغة.
+- واجهة عربية كاملة (RTL) وتصميم متجاوب للهاتف أولاً.
+- لا تعتمد على خرائط أو GPS أو أنظمة متقدمة؛ الموقع الدقيق ميزة اختيارية فقط.
+
+## المتطلبات
+
+- Node.js 20.19 أو أحدث
+
+## التشغيل
+
+```bash
+npm install
+npm run dev       # يفتح على http://localhost:5173
+npm run build     # بناء الإنتاج في مجلد dist
+npm run preview   # معاينة نسخة الإنتاج
+npm run lint      # فحص الكود
+```
+
+## هيكل المشروع
+
+```
+public/
+  favicon.svg            أيقونة الموقع
+  manifest.webmanifest   بيانات التطبيق القابل للتثبيت
+  sw.js                  Service Worker للعمل بدون إنترنت
+  icon-192.png / icon-512.png   أيقونات التثبيت على الهاتف
+src/
+  components/            مكونات العرض فقط (بدون منطق طلبات)
+    Brand.jsx            شعار التطبيق
+    ContactCard.jsx      بطاقة جهة اتصال (اتصال، نسخ، أو رسالة غياب الرقم)
+    CheckInBanner.jsx    شريط تنبيه عند انتهاء مؤقت "أنا بخير؟" في أي صفحة
+    Disclaimer.jsx       تنبيه أن النسخة تجريبية (كامل ومختصر)
+    ErrorBoundary.jsx    شاشة بديلة بأزرار اتصال عند أي خطأ برمجي
+    Header.jsx           الرأس الثابت
+    Icon.jsx             أيقونات SVG خطية
+    SosButton.jsx        زر SOS الكبير (ينقل إلى شاشة الطوارئ)
+    StateMessage.jsx     رسائل الحالة (خطأ، غير موجود)
+    TypeCard.jsx         بطاقة نوع طوارئ في الصفحة الرئيسية
+  data/
+    emergencyTypes.js    البيانات التجريبية (الأنواع، الإرشادات، الأرقام)
+  hooks/
+    useEmergencyTypes.js hooks تربط المكونات بالـ API (حالات: تحميل، جاهز، خطأ)
+    useCheckIn.js        مؤقت "أنا بخير؟" (تمديد، اهتزاز عند الانتهاء)
+    useGeolocation.js    الموقع الدقيق الاختياري بضغطة زر
+    useLocalStorage.js   حالة مرتبطة بالتخزين المحلي ومتزامنة بين المكونات
+    usePersonalData.js   جهات الطوارئ الشخصية والبطاقة الطبية
+  pages/
+    HomePage.jsx         الصفحة الرئيسية
+    CategoryPage.jsx     صفحة نوع الطوارئ
+    NotFoundPage.jsx     صفحة 404
+    SosPage.jsx          شاشة الطوارئ الآن (رسمية، شخصية، رسالة، طبية)
+    ContactsPage.jsx     جهات الطوارئ الشخصية والبطاقة الطبية
+  api.js                 طبقة الوصول للبيانات (الوحيدة التي تتعامل مع المصدر)
+  utils.js               دوال مساعدة (cx، رابط الاتصال، النسخ، ألوان الأنواع)
+  App.css                نظام التصميم (الألوان والخط) عبر @theme في Tailwind
+  App.jsx                المسارات والهيكل العام
+  main.jsx               نقطة الدخول (React + Router)
+```
+
+## أين أضيف الكود؟
+
+| تريد أن... | تضيفه في |
+|---|---|
+| نوع طوارئ جديد أو تغيير رقم | `src/data/emergencyTypes.js` (أضف `keywords` ليسهل البحث) |
+| رابط جديد في شريط التنقل | `NAV_ITEMS` في `src/data/options.js` |
+| عنصر عرض جديد (زر، بطاقة) | `src/components/` |
+| صفحة جديدة | `src/pages/` ثم سجّل مسارها في `src/App.jsx` |
+| جلب بيانات من الـ backend | `src/api.js` ثم hook في `src/hooks/` |
+| لون أو خط عام | `src/App.css` داخل `@theme` |
+
+## ربط الـ Backend أو الـ Microservice
+
+الكود الحالي يستخدم بيانات محلية في `src/data/emergencyTypes.js` وتُعرض فوراً بلا انتظار. عند الربط:
+
+1. أضف متغير البيئة في ملف `.env.local` (لا ترفعه إلى Git):
+   ```
+   VITE_API_URL=https://your-gateway.example.com/api
+   ```
+2. يجلب `src/api.js` من `GET {VITE_API_URL}/emergency-types` مرة واحدة ويحتفظ بالنتيجة، والرد قائمة بنفس شكل `EMERGENCY_TYPES`.
+3. إن فشل الخادم أو انقطع الإنترنت (أكثر من 5 ثوانٍ) يرجع التطبيق تلقائياً إلى البيانات المحلية، فلا تبقى الشاشة فارغة وقت الطوارئ.
+4. لا تغيّر المكونات ولا الـ hooks، فهي لا تعرف مصدر البيانات.
+
+## ملاحظات على الخصوصية والسلامة
+
+- البيانات الشخصية (الجهات، البطاقة الطبية، السجل، المؤقت) تُحفظ على جهاز المستخدم فقط في `localStorage`، ولا تُرسل إلى أي خادم. الموقع الدقيق لا يُحفظ أصلاً.
+- المطلوب في النسخة الأولى هو التجربة والتصميم، وليس دليل أرقام رسمي. يجب استبدال الأرقام بالجهات المعتمدة قبل أي استخدام حقيقي.
+</file>
+
+<file path="vite.config.js">
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  server: { proxy: { "/api": "http://localhost:3000" } },
+});
+</file>
+
+<file path="public/sw.js">
+const CACHE = "sos-saedni-v3";
+const SHELL = ["/", "/index.html", "/favicon.svg", "/icon-192.png", "/icon-512.png", "/manifest.webmanifest"];
+const FONT_HOSTS = ["fonts.googleapis.com", "fonts.gstatic.com"];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    (async () => {
+      const cache = await caches.open(CACHE);
+      await cache.addAll(SHELL);
+      try {
+        const html = await (await fetch("/index.html", { cache: "reload" })).text();
+        const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map((m) => m[1]);
+        await cache.addAll(assets);
+      } catch {
+7      }
+      await self.skipWaiting();
+    })()
+  );
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  if (request.method !== "GET") return;
+  const url = new URL(request.url);
+
+  if (FONT_HOSTS.includes(url.hostname)) {
+    event.respondWith(
+      caches.match(request).then((hit) => {
+        const fresh = fetch(request)
+          .then((response) => {
+            const copy = response.clone();
+            caches.open(CACHE).then((cache) => cache.put(request, copy));
+            return response;
+          })
+          .catch(() => hit);
+        return hit || fresh;
+      })
+    );
+    return;
+  }
+
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(request, copy));
+        return response;
+      })
+      .catch(() => caches.match(request).then((hit) => hit || caches.match("/index.html")))
+  );
+});
+</file>
+
+<file path="src/components/BottomNav.jsx">
+import { NavLink } from "react-router-dom";
+import Icon from "./Icon";
+import { cx } from "../utils";
+import { NAV_ITEMS } from "../data/options";
+
+export default function BottomNav() {
+  return (
+    <nav
+      aria-label="التنقل الرئيسي"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+    >
+      <ul className="mx-auto grid max-w-md grid-cols-4">
+        {NAV_ITEMS.map((item) => (
+          <li key={item.to}>
+            <NavLink
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                cx(
+                  "flex h-16 flex-col items-center justify-center gap-1 text-[11px] font-semibold transition",
+                  isActive ? "text-sos" : "text-stone-600 hover:text-stone-900"
+                )
+              }
+            >
+              <Icon name={item.icon} className="size-6" />
+              {item.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+</file>
+
+<file path="src/components/Brand.jsx">
+import Icon from "./Icon";
+import { cx } from "../utils";
+
+export default function Brand({ className }) {
+  return (
+    <div className={cx("flex items-center gap-2.5", className)}>
+      <span className="grid size-9 place-items-center rounded-xl bg-sos text-white shadow-sm">
+        <Icon name="shield" className="size-5" />
+      </span>
+      <span className="text-lg font-black tracking-tight text-stone-900">ساعدني</span>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/CheckInBanner.jsx">
+import { Link, useLocation } from "react-router-dom";
+import { useCheckIn } from "../hooks/useCheckIn";
+import Icon from "./Icon";
+
+export default function CheckInBanner() {
+  const { expired, confirm } = useCheckIn({ notify: true });
+  const { pathname } = useLocation();
+
+  if (!expired || pathname === "/checkin") return null;
+
+  return (
+    <div role="alert" className="bg-rose-600 px-4 py-3 text-white">
+      <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
+        <p className="flex items-center gap-2 font-bold">
+          <Icon name="alert" className="size-5 shrink-0" />
+          انتهى مؤقت «أنا بخير؟» ولم تؤكد سلامتك
+        </p>
+        <div className="flex gap-2">
+          <Link
+            to="/checkin"
+            className="rounded-lg bg-white px-3 py-1.5 text-sm font-bold text-rose-700 hover:bg-rose-50"
+          >
+            التفاصيل
+          </Link>
+          <button
+            type="button"
+            onClick={confirm}
+            className="cursor-pointer rounded-lg border border-white/70 px-3 py-1.5 text-sm font-bold hover:bg-rose-700"
+          >
+            أنا بخير
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/ContactCard.jsx">
+import { useEffect, useState } from "react";
+import Icon from "./Icon";
+import { copyText, toTel } from "../utils";
+import { useActivityLog } from "../hooks/useActivityLog";
+
+export default function ContactCard({ contact }) {
+  const [copied, setCopied] = useState(false);
+  const { record } = useActivityLog();
+  const hasNumber = Boolean(contact.number);
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
+
+  const handleCopy = async () => {
+    if (await copyText(contact.number)) {
+      setCopied(true);
+      record("copy", contact.name);
+    }
+  };
+
+  return (
+    <li className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+      <div>
+        <p className="text-lg font-bold text-stone-900">{contact.name}</p>
+        <p className="mt-0.5 text-sm text-stone-600">{contact.note}</p>
+      </div>
+
+      {hasNumber ? (
+        <div className="mt-4 space-y-3">
+          <p dir="ltr" className="font-mono text-2xl font-bold tabular-nums tracking-wide text-stone-900">
+            {contact.number}
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            <a
+              href={toTel(contact.number)}
+              onClick={() => record("call", contact.name)}
+              aria-label={`اتصل بـ${contact.name}`}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-sos font-bold text-white shadow-sm transition hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200"
+            >
+              <Icon name="phone" className="size-5" />
+              اتصل الآن
+            </a>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white font-semibold text-stone-800 transition hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+            >
+              <Icon name={copied ? "check" : "copy"} className="size-4" />
+              {copied ? "تم النسخ" : "نسخ الرقم"}
+            </button>
+          </div>
+          <span role="status" aria-live="polite" className="sr-only">
+            {copied ? `تم نسخ رقم ${contact.name}` : ""}
+          </span>
+        </div>
+      ) : (
+        <p className="mt-4 flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">
+          <Icon name="info" className="mt-0.5 size-4 shrink-0" />
+          لا يتوفر رقم مباشر، اتبع الإرشادات أعلاه.
+        </p>
+      )}
+    </li>
+  );
+}
+</file>
+
+<file path="src/components/Disclaimer.jsx">
+import Icon from "./Icon";
+
+export default function Disclaimer({ compact = false }) {
+  return (
+    <p
+      className={`flex items-start gap-2.5 rounded-2xl border border-amber-200 bg-amber-50 text-amber-900 ${
+        compact ? "p-3 text-xs leading-5" : "mt-8 p-4 text-sm leading-6"
+      }`}
+    >
+      <Icon name="alert" className={compact ? "mt-0.5 size-4 shrink-0" : "mt-1 size-4 shrink-0"} />
+      <span>
+        {compact
+          ? "نسخة تجريبية: الأرقام وهمية ولا تعمل كأرقام طوارئ حقيقية."
+          : "هذه نسخة تجريبية للعرض. الأرقام والإرشادات وهمية ولا تعني أن الخدمة مفعّلة أو أن الأرقام مستخدمة في أي منطقة."}
+      </span>
+    </p>
+  );
+}
+</file>
+
+<file path="src/components/ErrorBoundary.jsx">
+import { Component } from "react";
+import { EMERGENCY_TYPES } from "../data/emergencyTypes";
+import { toTel } from "../utils";
+// import Disclaimer from "./Disclaimer";
+
+// خط الدفاع الأخير: لو انهارت أي شاشة بسبب خطأ برمجي، يبقى للمستخدم
+// زر اتصال مباشر بالجهات الأساسية بدل صفحة بيضاء وقت الطوارئ.
+const FALLBACK_IDS = ["health", "security", "fire"];
+
+export default class ErrorBoundary extends Component {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    if (!this.state.failed) return this.props.children;
+
+    const calls = FALLBACK_IDS.map((id) => {
+      const type = EMERGENCY_TYPES.find((t) => t.id === id);
+      const contact = type?.contacts.find((c) => c.number);
+      return contact ? { id, name: contact.name, number: contact.number } : null;
+    }).filter(Boolean);
+
+    return (
+      <section role="alert" className="mx-auto max-w-3xl space-y-4 px-4 py-10">
+        <h1 className="text-2xl font-black text-sos">حدث خطأ غير متوقع</h1>
+        <p className="text-stone-700">يمكنك الاتصال مباشرة من هنا، أو إعادة تحميل الصفحة.</p>
+        <ul className="grid gap-3">
+          {calls.map((c) => (
+            <li key={c.id}>
+              <a
+                href={toTel(c.number)}
+                className="flex min-h-16 items-center justify-between rounded-2xl bg-sos px-5 py-4 text-lg font-black text-white"
+              >
+                <span>اتصل بـ{c.name}</span>
+                <span dir="ltr" className="font-mono">{c.number}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <button
+          type="button"
+          onClick={() => window.location.assign("/")}
+          className="h-12 w-full cursor-pointer rounded-xl border border-stone-300 bg-white font-bold text-stone-800"
+        >
+          إعادة تحميل التطبيق
+        </button>
+        {/* <Disclaimer compact /> */}
+      </section>
+    );
+  }
+}
+</file>
+
+<file path="src/components/Header.jsx">
+import { Link, NavLink } from "react-router-dom";
+import Brand from "./Brand";
+import { NAV_ITEMS } from "../data/options";
+import { cx } from "../utils";
+
+
+export default function Header() {
+  return (
+    <header className="sticky top-0 z-30 border-b border-stone-200/80 bg-canvas/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4">
+        <Link to="/" aria-label="الصفحة الرئيسية">
+          <Brand />
+        </Link>
+        <nav aria-label="التنقل الرئيسي" className="hidden items-center gap-1 md:flex">
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                cx(
+                  "rounded-lg px-3 py-1.5 text-sm font-semibold transition",
+                  isActive ? "bg-rose-50 text-sos" : "text-stone-600 hover:bg-stone-200/60 hover:text-sos"
+                )
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+        <Link
+          to="/sos"
+          className="rounded-lg bg-sos px-3 py-1.5 text-sm font-black text-white shadow-sm hover:bg-sos-dark md:hidden"
+        >
+          SOS
+        </Link>
+      </div>
+    </header>
+  );
+}
+</file>
+
+<file path="src/components/Icon.jsx">
+const PATHS = {
+  shield: (
+    <>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </>
+  ),
+  heart: (
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7z" />
+  ),
+  flame: (
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m21 21-4.3-4.3" />
+    </>
+  ),
+  help: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+      <path d="M12 17h.01" />
+    </>
+  ),
+  phone: (
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+  ),
+  copy: (
+    <>
+      <rect width="14" height="14" x="8" y="8" rx="2" />
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+    </>
+  ),
+  check: <path d="M20 6 9 17l-5-5" />,
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
+    </>
+  ),
+  download: (
+    <>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M12 15V3" />
+    </>
+  ),
+  home: (
+    <>
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <path d="M9 22V12h6v10" />
+    </>
+  ),
+  user: (
+    <>
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </>
+  ),
+  message: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
+  trash: (
+    <>
+      <path d="M3 6h18" />
+      <path d="M8 6V4h8v2" />
+      <path d="M19 6l-1 14H6L5 6" />
+    </>
+  ),
+  plus: (
+    <>
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
+    </>
+  ),
+  save: (
+    <>
+      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+      <path d="M17 21v-8H7v8" />
+      <path d="M7 3v5h8" />
+    </>
+  ),
+  share: (
+    <>
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.6 13.5 6.8 4" />
+      <path d="m15.4 6.5-6.8 4" />
+    </>
+  ),
+  chevron: <path d="m9 18 6-6-6-6" />,
+  alert: (
+    <>
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z" />
+      <path d="M12 9v4" />
+      <path d="M12 17h.01" />
+    </>
+  ),
+  car: (
+    <>
+      <path d="M5 17h14M3 13l2-6h14l2 6v4H3z" />
+      <circle cx="7.5" cy="17" r="1.5" />
+      <circle cx="16.5" cy="17" r="1.5" />
+    </>
+  ),
+  pin: (
+    <>
+      <path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </>
+  ),
+  info: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4" />
+      <path d="M12 8h.01" />
+    </>
+  ),
+};
+
+export default function Icon({ name, className = "size-5" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {PATHS[name]}
+    </svg>
+  );
+}
+</file>
+
+<file path="src/components/InstallButton.jsx">
+import Icon from "./Icon";
+import { useInstallPrompt } from "../hooks/useInstallPrompt";
+
+export default function InstallButton() {
+  const { canInstall, install } = useInstallPrompt();
+  if (!canInstall) return null;
+
+  return (
+    <button
+      type="button"
+      onClick={install}
+      className="mt-5 inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-stone-300 bg-white px-4 text-sm font-semibold text-stone-800 shadow-sm transition hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+    >
+      <Icon name="download" className="size-4" />
+      ثبّت التطبيق على هاتفك
+    </button>
+  );
+}
+</file>
+
+<file path="src/components/OfflineBanner.jsx">
+import { useOnlineStatus } from "../hooks/useOnlineStatus";
+
+export default function OfflineBanner() {
+  const online = useOnlineStatus();
+  if (online) return null;
+
+  return (
+    <div role="status" className="bg-amber-100 px-4 py-2 text-center text-sm font-semibold text-amber-900">
+      أنت غير متصل بالإنترنت. الإرشادات وجهات الاتصال متاحة على جهازك.
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/SosButton.jsx">
+import { Link } from "react-router-dom";
+
+export default function SosButton() {
+  return (
+    <Link
+      to="/sos"
+      aria-label="زر SOS: فتح شاشة الطوارئ والاتصال فوراً"
+      className="group relative mx-auto mt-8 flex size-44 items-center justify-center rounded-full bg-sos text-white shadow-[0_20px_50px_-10px_rgba(220,38,38,.6)] transition hover:scale-105 focus-visible:outline-none focus-visible:ring-8 focus-visible:ring-rose-200 active:scale-95"
+    >
+      <span aria-hidden="true" className="motion-safe:animate-ping absolute inset-0 rounded-full bg-sos/30" />
+      <span className="relative text-center">
+        <span className="block text-4xl font-black tracking-wider">SOS</span>
+        <span className="mt-1 block text-xs font-semibold text-white">اضغط للاتصال فوراً</span>
+      </span>
+    </Link>
+  );
+}
+</file>
+
+<file path="src/components/StateMessage.jsx">
+import Icon from "./Icon";
+
+export default function StateMessage({ tone = "info", title, hint, children }) {
+  const styles = {
+    info: "border-stone-200 bg-white text-stone-600",
+    error: "border-rose-200 bg-rose-50 text-rose-700",
+  };
+
+  return (
+    <div
+      role={tone === "error" ? "alert" : "status"}
+      className={`flex flex-col items-center gap-2 rounded-2xl border p-8 text-center ${styles[tone]}`}
+    >
+      <Icon name={tone === "error" ? "alert" : "info"} className="size-7" />
+      <p className="font-bold">{title}</p>
+      {hint && <p className="text-sm opacity-80">{hint}</p>}
+      {children}
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/TypeCard.jsx">
+import { Link } from "react-router-dom";
+import Icon from "./Icon";
+import { TONE_CLASSES, cx } from "../utils";
+
+export default function TypeCard({ type }) {
+  const tone = TONE_CLASSES[type.tone] ?? TONE_CLASSES.sky;
+
+  return (
+    <li>
+      <Link
+        to={`/emergency/${type.id}`}
+        className={cx(
+          "group flex min-h-20 items-center gap-4 rounded-2xl border border-stone-200 bg-white p-4 shadow-sm transition hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-100",
+          tone.bar
+        )}
+      >
+        <span className={cx("grid size-12 shrink-0 place-items-center rounded-xl ring-1", tone.chip)}>
+          <Icon name={type.icon} className="size-6" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-base font-bold text-stone-900">{type.title}</span>
+          <span className="mt-0.5 block text-sm text-stone-600">{type.description}</span>
+        </span>
+        <Icon name="chevron" className="size-5 shrink-0 text-stone-300 transition group-hover:text-stone-500" />
+      </Link>
+    </li>
+  );
+}
+</file>
+
+<file path="src/data/emergencyTypes.js">
+export const EMERGENCY_TYPES = [
+  {
+    id: "health",
+    title: "حالة صحية",
+    description: "إصابة، إغماء، نزيف، ضيق في التنفس",
+    keywords: "جرح اغماء حرق كسر قلب اختناق مريض اسعاف ولادة",
+    icon: "heart",
+    tone: "rose",
+    instructions: [
+      "إن كان المصاب فاقداً للوعي أو لا يتنفس بشكل طبيعي، اتصل بالإسعاف فوراً.",
+      "أوقف النزيف بالضغط المباشر على الجرح بقطعة قماش نظيفة.",
+      "ابقَ مع المصاب وتحدّث إليه حتى تصل المساعدة.",
+      "لا تُعطِ المصاب طعاماً أو شراباً أو دواءً إلا بتوجيه مختص.",
+    ],
+    contacts: [
+      { id: "ambulance", name: "الإسعاف", number: "000-000-001", note: "للحالات الحرجة والنقل العاجل" },
+      { id: "first-aid", name: "إرشاد الإسعافات الأولية", number: "000-000-002", note: "توجيه هاتفي قبل وصول الإسعاف" },
+      { id: "hospital", name: "أقرب مستشفى", number: null, note: "توجّه إليه بأسرع وسيلة متاحة" },
+    ],
+  },
+  {
+    id: "fire",
+    title: "حريق أو تسرب غاز",
+    description: "حريق، دخان، رائحة غاز",
+    keywords: "نار اطفاء دخان غاز انفجار",
+    icon: "flame",
+    tone: "orange",
+    instructions: [
+      "ابتعد عن مكان الحريق فوراً، ولا تعُد لأخذ متعلقاتك.",
+      "إن كان هناك دخان فانخفض نحو الأرض وتنفّس عبر قماشة مبللة إن أمكن.",
+      "لا تستخدم المصعد، واستخدم السلم.",
+      "لا تُشعل أي لهب أو تضغط مفاتيح الكهرباء قرب تسرب الغاز.",
+    ],
+    contacts: [
+      { id: "fire-brigade", name: "الإطفاء", number: "000-000-003", note: "إطفاء الحرائق" },
+      { id: "civil-defense", name: "الدفاع المدني", number: "000-000-004", note: "الإنقاذ من الأماكن المغلقة" },
+    ],
+  },
+  {
+    id: "security",
+    title: "أمن وشرطة",
+    description: "اعتداء، سرقة، تهديد، خطر على الأمان",
+    keywords: "شرطة نهب لص سلاح عنف خطف",
+    icon: "shield",
+    tone: "sky",
+    instructions: [
+      "إن كنت في خطر مباشر فابتعد إلى مكان آمن أولاً.",
+      "اذكر موقعك التقريبي بوضوح، وصف ما يحدث باختصار.",
+      "لا تواجه المعتدي، ولا تحاول التدخل بمفردك.",
+    ],
+    contacts: [
+      { id: "police", name: "الشرطة", number: "998", note: "البلاغات الأمنية العاجلة" },
+      { id: "traffic", name: "حوادث الطرق", number: "000-000-006", note: "الحوادث المرورية" },
+    ],
+  },
+  {
+    id: "traffic",
+    title: "حادث مروري",
+    description: "تصادم، دهس، انقلاب مركبة",
+    keywords: "حادث عربية سيارة تصادم دهس موتر دراجة طريق مرور",
+    icon: "car",
+    tone: "amber",
+    instructions: [
+      "تأكد من سلامتك أولاً: أوقف مركبتك بعيداً عن الطريق وشغّل الأضواء التحذيرية.",
+      "اتصل بالإسعاف والمرور، واذكر مكان الحادث وعدد المصابين.",
+      "لا تحرّك المصاب إلا إذا كان في خطر مباشر مثل الحريق.",
+      "أوقف النزيف بالضغط المباشر، ولا تنزع خوذة راكب الدراجة النارية.",
+    ],
+    contacts: [
+      { id: "traffic-ambulance", name: "الإسعاف", number: "000-000-001", note: "للمصابين والحالات الحرجة" },
+      { id: "traffic-police", name: "حوادث الطرق", number: "000-000-006", note: "تسجيل الحادث وتنظيم الطريق" },
+    ],
+  },
+  {
+    id: "sting",
+    title: "لدغة أو تسمم",
+    description: "عقرب، ثعبان، تناول مادة ضارة",
+    keywords: "عقرب ثعبان حية لدغ سم تسمم سموم دواء بلع كيماويات",
+    icon: "alert",
+    tone: "lime",
+    instructions: [
+      "ابقَ هادئاً وقلّل حركة المصاب، وأبقِ الطرف المصاب ثابتاً.",
+      "اتصل بالإسعاف أو توجّه إلى أقرب مستشفى فوراً، فالعلاج المبكر مهم.",
+      "انزع الخواتم والأساور قرب مكان اللدغة قبل أن يتورم.",
+      "لا تشقّ الجرح ولا تمصّه ولا تربط الطرف بإحكام شديد.",
+      "في التسمم: لا تُجبر المصاب على التقيؤ، واحتفظ بعلبة المادة لتريها للطبيب.",
+    ],
+    contacts: [
+      { id: "sting-ambulance", name: "الإسعاف", number: "000-000-001", note: "للنقل العاجل" },
+      { id: "poison", name: "مركز السموم", number: "000-000-009", note: "توجيه هاتفي لحالات اللدغ والتسمم" },
+      { id: "sting-hospital", name: "أقرب مستشفى", number: null, note: "توجّه إليه بأسرع وسيلة متاحة" },
+    ],
+  },
+  {
+    id: "missing",
+    title: "شخص مفقود أو تائه",
+    description: "طفل، مسن، أو شخص ضلّ طريقه",
+    keywords: "ضايع تايه ضل غاب اختفى",
+    icon: "search",
+    tone: "violet",
+    instructions: [
+      "اتصل بالشرطة فوراً وأعطِ آخر مكان شوهد فيه الشخص.",
+      "جهّز صورة حديثة ووصفاً دقيقاً للملابس والعلامات المميزة.",
+      "إن أمكن فابقَ في مكانك حتى يصل من يساعدك.",
+    ],
+    contacts: [
+      { id: "missing-reports", name: "بلاغات المفقودين", number: "000-000-007", note: "تسجيل البلاغ ومتابعته" },
+      { id: "police-missing", name: "الشرطة", number: "998", note: "للبلاغات العاجلة" },
+    ],
+  },
+  {
+    id: "other",
+    title: "مساعدة أخرى",
+    description: "حالة لا تنطبق على الخيارات السابقة",
+    keywords: "اخرى غير معروف مساعدة",
+    icon: "help",
+    tone: "emerald",
+    instructions: [
+      "صف الحالة لأقرب شخص حولك واطلب منه الاتصال بالرقم المناسب.",
+      "إن لم تعرف الجهة المناسبة فابدأ بالرقم العام للطوارئ.",
+    ],
+    contacts: [
+      { id: "general", name: "الرقم الموحّد للطوارئ", number: "000-000-000", note: "رقم عام للتوجيه" },
+      { id: "guidance", name: "خدمة الإرشاد", number: "000-000-008", note: "توجيه لاختيار الجهة المناسبة" },
+    ],
+  },
+];
+</file>
+
+<file path="src/data/options.js">
+export const BLOOD_TYPES = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+
+export const MAX_PERSONAL_CONTACTS = 5;
+
+export const LOG_LABELS = {
+  call: "اتصال",
+  sms: "رسالة",
+  share: "مشاركة",
+  checkin: "أنا بخير؟",
+  copy: "نسخ رقم",
+};
+
+export const NAV_ITEMS = [
+  { to: "/", label: "الرئيسية", icon: "home", end: true },
+  { to: "/sos", label: "الطوارئ", icon: "alert" },
+  { to: "/checkin", label: "أنا بخير؟", icon: "clock" },
+  { to: "/contacts", label: "جهاتي", icon: "user" },
+];
+
+export const CHECKIN_PRESETS = [5, 15, 30, 60];
+export const CHECKIN_EXTEND_MINUTES = 15;
+</file>
+
+<file path="src/hooks/useActivityLog.js">
+import { useLocalStorage } from "./useLocalStorage";
+
+const MAX_ENTRIES = 30;
+
+const makeId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
+
+export function useActivityLog() {
+  const [log, setLog] = useLocalStorage("sos.log", []);
+
+  const record = (type, label) =>
+    setLog((list) => [{ id: makeId(), type, label, at: Date.now() }, ...list].slice(0, MAX_ENTRIES));
+
+  const clear = () => setLog([]);
+
+  return { log, record, clear };
+}
+</file>
+
+<file path="src/hooks/useCheckIn.js">
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "./useLocalStorage";
+
+
+export function useCheckIn({ notify = false } = {}) {
+  const [deadline, setDeadline] = useLocalStorage("sos.checkin", null);
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    if (!deadline) return;
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [deadline]);
+
+  const start = (minutes) => {
+    setNow(Date.now());
+    setDeadline(Date.now() + minutes * 60_000);
+  };
+  const confirm = () => setDeadline(null);
+  const extend = (minutes) => {
+    setNow(Date.now());
+    setDeadline((d) => Math.max(d ?? 0, Date.now()) + minutes * 60_000);
+  };
+
+  const remainingMs = deadline ? deadline - now : null;
+  const expired = deadline !== null && remainingMs <= 0;
+
+  useEffect(() => {
+    if (!notify || !expired) return;
+    const previousTitle = document.title;
+    navigator.vibrate?.([400, 200, 400, 200, 800]);
+    document.title = "⚠ لم تؤكد سلامتك | ساعدني";
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [notify, expired]);
+
+  return { deadline, remainingMs, expired, start, confirm, extend };
+}
+</file>
+
+<file path="src/hooks/useEmergencyTypes.js">
+import { useEffect, useState } from "react";
+import { getCachedEmergencyTypes, getEmergencyType, getEmergencyTypes } from "../api";
+
+export function useEmergencyTypes() {
+  const [state, setState] = useState(() => {
+    const cached = getCachedEmergencyTypes();
+    return cached ? { status: "ready", data: cached } : { status: "loading", data: [] };
+  });
+
+  useEffect(() => {
+    let alive = true;
+    getEmergencyTypes()
+      .then((data) => alive && setState({ status: "ready", data }))
+      .catch(() => alive && setState((s) => (s.status === "ready" ? s : { status: "error", data: [] })));
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  return state;
+}
+
+export function useEmergencyType(id) {
+  const [state, setState] = useState(() => {
+    const found = getCachedEmergencyTypes()?.find((t) => t.id === id);
+    return found ? { status: "ready", data: found } : { status: "loading", data: null };
+  });
+
+  useEffect(() => {
+    let alive = true;
+    getEmergencyType(id)
+      .then((data) => alive && setState({ status: data ? "ready" : "notfound", data }))
+      .catch(() => alive && setState({ status: "error", data: null }));
+    return () => {
+      alive = false;
+    };
+  }, [id]);
+
+  return state;
+}
+</file>
+
+<file path="src/hooks/useGeolocation.js">
+import { useCallback, useState } from "react";
+
+
+export function useGeolocation() {
+  const [state, setState] = useState({ status: "idle", coords: null });
+
+  const request = useCallback(() => {
+    if (!("geolocation" in navigator)) {
+      setState({ status: "unavailable", coords: null });
+      return;
+    }
+    setState({ status: "loading", coords: null });
+    navigator.geolocation.getCurrentPosition(
+      (pos) =>
+        setState({
+          status: "ok",
+          coords: { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: Math.round(pos.coords.accuracy) },
+        }),
+      (err) =>
+        setState({
+          status: err.code === 1 ? "denied" : err.code === 3 ? "timeout" : "unavailable",
+          coords: null,
+        }),
+      { enableHighAccuracy: true, timeout: 12_000, maximumAge: 60_000 }
+    );
+  }, []);
+
+  const clear = useCallback(() => setState({ status: "idle", coords: null }), []);
+
+  return { ...state, request, clear };
+}
+</file>
+
+<file path="src/hooks/useInstallPrompt.js">
+import { useEffect, useState } from "react";
+
+export function useInstallPrompt() {
+  const [promptEvent, setPromptEvent] = useState(null);
+
+  useEffect(() => {
+    const onPrompt = (e) => {
+      e.preventDefault();
+      setPromptEvent(e);
+    };
+    const onInstalled = () => setPromptEvent(null);
+    window.addEventListener("beforeinstallprompt", onPrompt);
+    window.addEventListener("appinstalled", onInstalled);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onPrompt);
+      window.removeEventListener("appinstalled", onInstalled);
+    };
+  }, []);
+
+  const install = async () => {
+    if (!promptEvent) return;
+    promptEvent.prompt();
+    await promptEvent.userChoice;
+    setPromptEvent(null);
+  };
+
+  return { canInstall: Boolean(promptEvent), install };
+}
+</file>
+
+<file path="src/hooks/useLocalStorage.js">
+import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+
+const listeners = new Set();
+const memory = new Map();
+
+
+const notify = () => listeners.forEach((l) => l());
+window.addEventListener("storage", notify);
+
+const subscribe = (cb) => {
+  listeners.add(cb);
+  return () => listeners.delete(cb);
+};
+
+const readRaw = (key) => {
+  if (memory.has(key)) return memory.get(key);
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const writeRaw = (key, raw) => {
+  try {
+    localStorage.setItem(key, raw);
+    memory.delete(key);
+  } catch {
+    memory.set(key, raw);
+  }
+  notify();
+};
+
+const parse = (raw, fallback) => {
+  if (raw == null) return fallback;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return fallback;
+  }
+};
+
+export function useLocalStorage(key, initialValue) {
+  const [initial] = useState(initialValue);
+  const raw = useSyncExternalStore(subscribe, () => readRaw(key));
+  const value = useMemo(() => parse(raw, initial), [raw, initial]);
+
+  const update = useCallback(
+    (next) => {
+      const prev = parse(readRaw(key), initial);
+      const resolved = typeof next === "function" ? next(prev) : next;
+      writeRaw(key, JSON.stringify(resolved));
+    },
+    [key, initial]
+  );
+
+  return [value, update];
+}
+</file>
+
+<file path="src/hooks/useOnlineStatus.js">
+import { useEffect, useState } from "react";
+
+export function useOnlineStatus() {
+  const [online, setOnline] = useState(() => navigator.onLine);
+
+  useEffect(() => {
+    const goOnline = () => setOnline(true);
+    const goOffline = () => setOnline(false);
+    window.addEventListener("online", goOnline);
+    window.addEventListener("offline", goOffline);
+    return () => {
+      window.removeEventListener("online", goOnline);
+      window.removeEventListener("offline", goOffline);
+    };
+  }, []);
+
+  return online;
+}
+</file>
+
+<file path="src/hooks/usePersonalData.js">
+import { useLocalStorage } from "./useLocalStorage";
+
+const EMPTY_PROFILE = {
+  name: "",
+  bloodType: "",
+  allergies: "",
+  conditions: "",
+  medications: "",
+};
+
+const makeId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
+
+export function usePersonalContacts() {
+  const [contacts, setContacts] = useLocalStorage("sos.contacts", []);
+
+  const addContact = (contact) =>
+    setContacts((list) => [...list, { ...contact, id: makeId() }]);
+
+  const removeContact = (id) => setContacts((list) => list.filter((c) => c.id !== id));
+
+  return { contacts, addContact, removeContact };
+}
+
+export function useMedicalProfile() {
+  const [profile, setProfile] = useLocalStorage("sos.profile", EMPTY_PROFILE);
+
+  const saveProfile = (next) => setProfile({ ...EMPTY_PROFILE, ...next });
+
+  return { profile: { ...EMPTY_PROFILE, ...profile }, saveProfile };
+}
+</file>
+
+<file path="src/pages/CategoryPage.jsx">
+import { Link, useParams } from "react-router-dom";
+import { useEmergencyType } from "../hooks/useEmergencyTypes";
+import Icon from "../components/Icon";
+import ContactCard from "../components/ContactCard";
+// import Disclaimer from "../components/Disclaimer";
+import { useActivityLog } from "../hooks/useActivityLog";
+import StateMessage from "../components/StateMessage";
+import { TONE_CLASSES, cx, toTel } from "../utils";
+
+export default function CategoryPage() {
+  const { typeId } = useParams();
+  const { status, data: type } = useEmergencyType(typeId);
+  const { record } = useActivityLog();
+
+  const backLink = (
+    <Link
+      to="/"
+      className="inline-flex items-center gap-1 text-sm font-semibold text-stone-600 hover:text-sos"
+    >
+      <Icon name="chevron" className="size-4" />
+      رجوع إلى الخيارات
+    </Link>
+  );
+
+  if (status === "loading") {
+    return (
+      <section className="mx-auto max-w-3xl space-y-4 px-4 py-8">
+        <div className="h-8 w-40 animate-pulse rounded-lg bg-stone-200/70" />
+        <div className="h-40 animate-pulse rounded-2xl bg-stone-200/70" />
+      </section>
+    );
+  }
+
+  if (status === "notfound" || status === "error") {
+    return (
+      <section className="mx-auto max-w-3xl space-y-4 px-4 py-8">
+        {backLink}
+        <StateMessage
+          tone="error"
+          title={status === "notfound" ? "نوع الطوارئ غير موجود" : "تعذّر تحميل البيانات"}
+          hint="اختر نوع الطوارئ من الصفحة الرئيسية."
+        />
+      </section>
+    );
+  }
+
+  const tone = TONE_CLASSES[type.tone] ?? TONE_CLASSES.sky;
+  const primary = type.contacts.find((c) => c.number);
+  const others = type.contacts.filter((c) => c !== primary);
+
+  return (
+    <section className="mx-auto max-w-3xl space-y-6 px-4 py-8">
+      {backLink}
+
+      <header className="flex items-center gap-4">
+        <span className={cx("grid size-14 shrink-0 place-items-center rounded-2xl ring-1", tone.chip)}>
+          <Icon name={type.icon} className="size-7" />
+        </span>
+        <div>
+          <h1 className="text-2xl font-black text-stone-900">{type.title}</h1>
+          <p className="text-sm text-stone-500">{type.description}</p>
+        </div>
+      </header>
+
+      {primary && (
+        <a
+          href={toTel(primary.number)}
+          onClick={() => record("call", primary.name)}
+          aria-label={`اتصل بـ${primary.name} على الرقم ${primary.number}`}
+          className="flex min-h-20 items-center justify-between gap-4 rounded-2xl bg-sos px-6 py-4 text-white shadow-lg transition hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-8 focus-visible:ring-rose-200 active:scale-[0.98]"
+        >
+          <span className="flex items-center gap-3">
+            <Icon name="phone" className="size-8" />
+            <span className="text-xl font-black">اتصل بـ{primary.name}</span>
+          </span>
+          <span dir="ltr" className="font-mono text-base font-bold tabular-nums opacity-90">
+            {primary.number}
+          </span>
+        </a>
+      )}
+
+      <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <h2 className="mb-3 text-base font-bold text-stone-900">إرشادات سريعة</h2>
+        <ol className="space-y-3">
+          {type.instructions.map((step, i) => (
+            <li key={i} className="flex gap-3 text-sm leading-6 text-stone-700">
+              <span className="grid size-6 shrink-0 place-items-center rounded-full bg-stone-100 text-xs font-bold text-stone-600">
+                {i + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      {others.length > 0 && (
+        <div>
+          <h2 className="mb-3 text-base font-bold text-stone-900">
+            {primary ? "جهات أخرى" : "جهات الاتصال"}
+          </h2>
+          <ul className="space-y-3">
+            {others.map((contact) => (
+              <ContactCard key={contact.id} contact={contact} />
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* <Disclaimer compact /> */}
+    </section>
+  );
+}
+</file>
+
+<file path="src/pages/SosPage.jsx">
+import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useEmergencyTypes } from "../hooks/useEmergencyTypes";
+import { usePersonalContacts, useMedicalProfile } from "../hooks/usePersonalData";
+import { useActivityLog } from "../hooks/useActivityLog";
+import Icon from "../components/Icon";
+import StateMessage from "../components/StateMessage";
+// import Disclaimer from "../components/Disclaimer";
+import { useGeolocation } from "../hooks/useGeolocation";
+import { buildEmergencyMessage, shareText, smsLink, toTel } from "../utils";
+
+// الاتصالات الرسمية المباشرة: كل زر يتصل بضغطة واحدة
+const DIRECT_CALLS = [
+  { typeId: "health", label: "الإسعاف", icon: "heart", tone: "bg-rose-600 hover:bg-rose-700" },
+  { typeId: "security", label: "الشرطة", icon: "shield", tone: "bg-sky-700 hover:bg-sky-800" },
+  { typeId: "fire", label: "الإطفاء", icon: "flame", tone: "bg-orange-600 hover:bg-orange-700" },
+];
+
+const GEO_FEEDBACK = {
+  loading: "جارٍ تحديد موقعك...",
+  denied: "لم يُسمح بالوصول للموقع. اكتب موقعك بالكلمات بدلاً من ذلك.",
+  timeout: "استغرق تحديد الموقع وقتاً طويلاً. اكتب موقعك بالكلمات أو حاول مرة أخرى.",
+  unavailable: "تعذّر تحديد الموقع على هذا الجهاز. اكتب موقعك بالكلمات.",
+};
+
+const SHARE_FEEDBACK = {
+  copied: "تم نسخ رسالة الطوارئ، الصقها في أي تطبيق للمراسلة",
+  failed: "تعذّر نسخ الرسالة، حاول مرة أخرى",
+};
+
+// شاشة الطوارئ: الاتصالات الرسمية، ثم جهات الطوارئ الشخصية، ثم الرسالة والبطاقة الطبية
+export default function SosPage() {
+  const { status, data } = useEmergencyTypes();
+  const { contacts } = usePersonalContacts();
+  const { profile } = useMedicalProfile();
+  const { record } = useActivityLog();
+  const geo = useGeolocation();
+  const [location, setLocation] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const headingRef = useRef(null);
+
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
+
+  const official = DIRECT_CALLS.map((item) => {
+    const type = data.find((t) => t.id === item.typeId);
+    const contact = type?.contacts.find((c) => c.number);
+    return { ...item, number: contact?.number ?? null };
+  });
+
+  const message = buildEmergencyMessage({ name: profile.name, location, coords: geo.coords, profile });
+  const hasMedical = [profile.bloodType, profile.allergies, profile.conditions, profile.medications].some(
+    (v) => v && v.trim()
+  );
+
+  const handleShare = async () => {
+    const result = await shareText(message);
+    if (result === "shared" || result === "copied") record("share", "رسالة الطوارئ");
+    setFeedback(SHARE_FEEDBACK[result] ?? "");
+  };
+
+  return (
+    <section className="mx-auto max-w-3xl space-y-7 px-4 py-8">
+      <div className="flex items-center justify-between">
+        <h1 ref={headingRef} tabIndex={-1} className="text-3xl font-black text-sos outline-none">
+          الطوارئ الآن
+        </h1>
+        <Link
+          to="/"
+          className="rounded-lg px-3 py-2 text-sm font-semibold text-stone-600 transition hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-300"
+        >
+          إلغاء
+        </Link>
+      </div>
+
+      {/* 1. الاتصالات الرسمية */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-stone-600">الجهات الرسمية</h2>
+        {status === "loading" && (
+          <div className="grid gap-3" aria-label="جاري التحميل">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="h-24 animate-pulse rounded-2xl bg-stone-200/70" />
+            ))}
+          </div>
+        )}
+        {status === "error" && (
+          <StateMessage tone="error" title="تعذّر تحميل الاتصالات" hint="جرّب فتح خيارات الطوارئ من الرئيسية." />
+        )}
+        {status === "ready" && (
+          <ul className="grid gap-3">
+            {official.map((call) =>
+              call.number ? (
+                <li key={call.typeId}>
+                  <a
+                    href={toTel(call.number)}
+                    onClick={() => record("call", call.label)}
+                    aria-label={`اتصل بـ${call.label} على الرقم ${call.number}`}
+                    className={`flex min-h-24 items-center justify-between gap-4 rounded-2xl px-6 py-5 text-white shadow-lg transition focus-visible:outline-none focus-visible:ring-8 focus-visible:ring-stone-300 active:scale-[0.98] ${call.tone}`}
+                  >
+                    <span className="flex items-center gap-4">
+                      <Icon name={call.icon} className="size-9" />
+                      <span className="text-2xl font-black">اتصل بـ{call.label}</span>
+                    </span>
+                    <span dir="ltr" className="font-mono text-lg font-bold tabular-nums opacity-90">
+                      {call.number}
+                    </span>
+                  </a>
+                </li>
+              ) : (
+                <li key={call.typeId} className="rounded-2xl border border-stone-200 bg-white p-5 text-stone-600">
+                  {call.label}: لا يتوفر رقم مباشر
+                </li>
+              )
+            )}
+          </ul>
+        )}
+      </div>
+
+      <Link
+        to="/#types"
+        className="flex items-center justify-between rounded-2xl border border-stone-200 bg-white p-4 text-sm font-semibold text-stone-800 shadow-sm hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+      >
+        <span>حالة أخرى؟ حادث مروري، لدغة، شخص مفقود...</span>
+        <Icon name="chevron" className="size-5 text-stone-400" />
+      </Link>
+
+      {/* 2. جهات الطوارئ الشخصية */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-stone-600">جهات طوارئي</h2>
+          <Link to="/contacts" className="text-sm font-semibold text-sos hover:underline">
+            إدارة الجهات
+          </Link>
+        </div>
+        {contacts.length === 0 ? (
+          <p className="rounded-2xl border border-dashed border-stone-300 bg-white p-5 text-center text-sm text-stone-600">
+            لم تضف جهات بعد. <Link to="/contacts" className="font-semibold text-sos hover:underline">أضف شخصًا تثق به</Link>
+          </p>
+        ) : (
+          <ul className="grid gap-3">
+            {contacts.map((c) => (
+              <li key={c.id} className="flex items-center justify-between gap-3 rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+                <div className="min-w-0">
+                  <p className="truncate font-bold text-stone-900">{c.name}</p>
+                  <p dir="ltr" className="font-mono text-sm text-stone-600">
+                    {c.phone}
+                    {c.relation && <span className="ms-2 font-sans text-stone-500">({c.relation})</span>}
+                  </p>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  <a
+                    href={smsLink(c.phone, message)}
+                    onClick={() => record("sms", c.name)}
+                    aria-label={`أرسل رسالة طوارئ إلى ${c.name}`}
+                    className="inline-flex h-11 items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 text-sm font-semibold text-stone-800 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+                  >
+                    <Icon name="message" className="size-4" />
+                    رسالة
+                  </a>
+                  <a
+                    href={toTel(c.phone)}
+                    onClick={() => record("call", c.name)}
+                    aria-label={`اتصل بـ${c.name}`}
+                    className="inline-flex h-11 items-center gap-2 rounded-xl bg-emerald-600 px-3 text-sm font-bold text-white hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+                  >
+                    <Icon name="phone" className="size-4" />
+                    اتصل
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* 3. الرسالة والموقع */}
+      <div className="space-y-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <h2 className="font-bold text-stone-900">أرسل موقعك للآخرين</h2>
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium text-stone-700">موقعك باختصار</span>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="مثال: شارع الجامعة قرب الصيدلية الخضراء"
+            className="h-12 w-full rounded-xl border border-stone-300 bg-white px-4 text-stone-900 placeholder:text-stone-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-rose-100"
+          />
+        </label>
+
+        {/* موقع دقيق اختياري: لا يُطلب إلا بضغطة، ولا يعمل الباقي بدونه */}
+        <button
+          type="button"
+          onClick={geo.request}
+          disabled={geo.status === "loading"}
+          className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white text-sm font-semibold text-stone-800 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200 disabled:cursor-wait disabled:opacity-60"
+        >
+          <Icon name="pin" className="size-4" />
+          {geo.status === "ok" ? "تحديث موقعي الدقيق" : "أضف موقعي الدقيق (اختياري)"}
+        </button>
+        {geo.status === "ok" && (
+          <p role="status" className="flex items-center justify-between gap-2 rounded-xl bg-emerald-50 p-3 text-sm font-semibold text-emerald-800">
+            <span>تمت إضافة رابط موقعك (الدقة نحو {geo.coords.accuracy} متر)</span>
+            <button type="button" onClick={geo.clear} className="cursor-pointer text-xs underline">
+              إزالة
+            </button>
+          </p>
+        )}
+        {GEO_FEEDBACK[geo.status] && (
+          <p role="status" className="text-sm text-stone-700">
+            {GEO_FEEDBACK[geo.status]}
+          </p>
+        )}
+
+        {/* معاينة ما سيُرسل بالضبط */}
+        <div>
+          <p className="mb-1.5 text-sm font-medium text-stone-700">الرسالة التي ستُرسل</p>
+          <pre className="whitespace-pre-wrap break-words rounded-xl bg-stone-50 p-3 font-sans text-sm leading-6 text-stone-800 ring-1 ring-stone-200">
+            {message}
+          </pre>
+        </div>
+        <button
+          type="button"
+          onClick={handleShare}
+          className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-stone-900 font-bold text-white transition hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-300"
+        >
+          <Icon name="share" className="size-5" />
+          مشاركة رسالة الطوارئ
+        </button>
+        {feedback && (
+          <p role="status" className="text-center text-sm text-stone-700">
+            {feedback}
+          </p>
+        )}
+      </div>
+
+      {/* 4. البطاقة الطبية */}
+      {hasMedical && (
+        <div className="space-y-3 rounded-2xl border border-rose-200 bg-rose-50/60 p-5">
+          <h2 className="font-bold text-rose-800">البيانات الطبية</h2>
+          <dl className="grid gap-3 text-sm sm:grid-cols-2">
+            {profile.bloodType && <Field label="فصيلة الدم" value={profile.bloodType} />}
+            {profile.allergies && <Field label="الحساسية" value={profile.allergies} />}
+            {profile.conditions && <Field label="حالات مزمنة" value={profile.conditions} />}
+            {profile.medications && <Field label="أدوية مستمرة" value={profile.medications} />}
+          </dl>
+        </div>
+      )}
+
+      {/* <Disclaimer compact /> */}
+    </section>
+  );
+}
+
+function Field({ label, value }) {
+  return (
+    <div className="rounded-xl bg-white p-3 shadow-sm">
+      <dt className="text-xs font-semibold text-stone-600">{label}</dt>
+      <dd className="mt-0.5 font-bold text-stone-900">{value}</dd>
+    </div>
+  );
+}
+</file>
+
+<file path="src/api.js">
+import { EMERGENCY_TYPES } from "./data/emergencyTypes";
+const API_URL = import.meta.env.VITE_API_URL;
+const TIMEOUT_MS = 5000;
+
+const STORAGE_KEY = "sos.types";
+
+let cache = null;
+
+const readStored = () => {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return Array.isArray(data) && data.length > 0 ? data : null;
+  } catch {
+    return null;
+  }
+};
+
+const store = (data) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    /* التخزين ممتلئ أو معطّل: لا يؤثر على التطبيق */
+  }
+};
+
+export const getCachedEmergencyTypes = () => cache ?? (API_URL ? readStored() : EMERGENCY_TYPES);
+
+async function fetchFromServer() {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(`${API_URL}/emergency-types`, { signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) throw new Error("بيانات غير صالحة");
+    return data;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export async function getEmergencyTypes() {
+  if (cache) return cache;
+  if (!API_URL) return EMERGENCY_TYPES;
+  try {
+    cache = await fetchFromServer();
+    store(cache);
+    return cache;
+  } catch {
+    return readStored() ?? EMERGENCY_TYPES; // احتياطي عند أي فشل
+  }
+}
+
+export async function getEmergencyType(id) {
+  const all = await getEmergencyTypes();
+  return all.find((t) => t.id === id) ?? null;
+}
+</file>
+
+<file path="src/App.css">
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Tajawal", "Segoe UI", Tahoma, system-ui, sans-serif;
+
+  --color-canvas: #f7f5f0;
+  --color-sos: #dc2626;
+  --color-sos-dark: #991b1b;
+  --color-ink: #1c1917;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sos);
+    outline-offset: 3px;
+  }
+  body {
+    @apply bg-canvas font-sans text-stone-800 antialiased;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</file>
+
+<file path="src/App.jsx">
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Header from "./components/Header";
+import BottomNav from "./components/BottomNav";
+import OfflineBanner from "./components/OfflineBanner";
+import CheckInBanner from "./components/CheckInBanner";
+import ErrorBoundary from "./components/ErrorBoundary";
+import HomePage from "./pages/HomePage";
+import SosPage from "./pages/SosPage";
+import CheckInPage from "./pages/CheckInPage";
+import ContactsPage from "./pages/ContactsPage";
+import CategoryPage from "./pages/CategoryPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
+const TITLES = {
+  "/": "ساعدني | SOS",
+  "/sos": "الطوارئ الآن | ساعدني",
+  "/checkin": "أنا بخير؟ | ساعدني",
+  "/contacts": "جهاتي | ساعدني",
+};
+
+export default function App() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    document.title = TITLES[pathname] ?? "ساعدني | SOS";
+    const target = hash ? document.getElementById(hash.slice(1)) : null;
+    if (target) target.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return (
+    <div className="min-h-screen">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-lg bg-white px-4 py-2 font-semibold text-stone-900 shadow focus:not-sr-only focus:fixed focus:start-4 focus:top-4"
+      >
+        تخطٍّ إلى المحتوى
+      </a>
+      <OfflineBanner />
+      <CheckInBanner />
+      <Header />
+      <main id="main" tabIndex={-1} className="pb-24 outline-none md:pb-10">
+        <ErrorBoundary key={pathname}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/sos" element={<SosPage />} />
+            <Route path="/checkin" element={<CheckInPage />} />
+            <Route path="/contacts" element={<ContactsPage />} />
+            <Route path="/emergency/:typeId" element={<CategoryPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </ErrorBoundary>
+      </main>
+      <BottomNav />
+    </div>
+  );
+}
+</file>
+
+<file path="src/main.jsx">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App.jsx";
+import "./App.css";
+
+if ("serviceWorker" in navigator && import.meta.env.PROD) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {
+      /* التطبيق يعمل بشكل طبيعي حتى بدون الـ Service Worker */
+    });
+  });
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+</file>
+
+<file path="src/utils.js">
+export const cx = (...classes) => classes.filter(Boolean).join(" ");
+
+export const TONE_CLASSES = {
+  rose: { chip: "bg-rose-50 text-rose-600 ring-rose-100", bar: "group-hover:border-rose-300" },
+  orange: { chip: "bg-orange-50 text-orange-600 ring-orange-100", bar: "group-hover:border-orange-300" },
+  sky: { chip: "bg-sky-50 text-sky-600 ring-sky-100", bar: "group-hover:border-sky-300" },
+  violet: { chip: "bg-violet-50 text-violet-600 ring-violet-100", bar: "group-hover:border-violet-300" },
+  emerald: { chip: "bg-emerald-50 text-emerald-600 ring-emerald-100", bar: "group-hover:border-emerald-300" },
+  amber: { chip: "bg-amber-50 text-amber-600 ring-amber-100", bar: "group-hover:border-amber-300" },
+  lime: { chip: "bg-lime-50 text-lime-700 ring-lime-100", bar: "group-hover:border-lime-300" },
+};
+
+export const normalizeArabic = (text = "") =>
+  text
+    .toLowerCase()
+    .replace(/[\u064B-\u0652\u0640]/g, "")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه")
+    .replace(/ى/g, "ي")
+    .trim();
+
+// هل يطابق نوع الطوارئ كلمة البحث؟ (العنوان والوصف والكلمات المفتاحية)
+export const matchesQuery = (type, query) => {
+  const term = normalizeArabic(query);
+  if (!term) return true;
+  return normalizeArabic(`${type.title} ${type.description} ${type.keywords ?? ""}`).includes(term);
+};
+
+export const mapsLink = ({ lat, lng }) => `https://maps.google.com/?q=${lat.toFixed(5)},${lng.toFixed(5)}`;
+
+export const toTel = (number) => `tel:${number.replace(/[^\d+]/g, "")}`;
+
+export const smsLink = (number, body) =>
+  `sms:${number.replace(/[^\d+]/g, "")}?body=${encodeURIComponent(body)}`;
+
+export const isValidPhone = (value) => {
+  const trimmed = value.trim();
+  const digits = trimmed.replace(/\D/g, "");
+  return /^\+?[\d\s-]+$/.test(trimmed) && digits.length >= 6 && digits.length <= 15;
+};
+
+export function buildEmergencyMessage({ name, location, coords, profile }) {
+  const lines = ["حالة طوارئ!"];
+  if (name) lines.push(`الاسم: ${name}`);
+  lines.push(`الموقع: ${location.trim() || "غير محدد"}`);
+  if (coords) lines.push(`الموقع على الخريطة: ${mapsLink(coords)}`);
+  if (profile?.bloodType) lines.push(`فصيلة الدم: ${profile.bloodType}`);
+  if (profile?.allergies) lines.push(`الحساسية: ${profile.allergies}`);
+  if (profile?.conditions) lines.push(`حالات مزمنة: ${profile.conditions}`);
+  if (profile?.medications) lines.push(`أدوية مستمرة: ${profile.medications}`);
+  lines.push("أرسلت من تطبيق ساعدني.");
+  return lines.join("\n");
+}
+
+export function formatCountdown(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  const pad = (n) => String(n).padStart(2, "0");
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+}
+
+export const formatDateTime = (ms) =>
+  new Intl.DateTimeFormat("ar-SD-u-nu-latn", { dateStyle: "medium", timeStyle: "short" }).format(new Date(ms));
+
+export async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+
+export async function shareText(text) {
+  if (navigator.share) {
+    try {
+      await navigator.share({ text });
+      return "shared";
+    } catch {
+      return "cancelled";
+    }
+  }
+  return (await copyText(text)) ? "copied" : "failed";
+}
+</file>
+
+<file path="src/pages/CheckInPage.jsx">
+import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useCheckIn } from "../hooks/useCheckIn";
+import { useActivityLog } from "../hooks/useActivityLog";
+import { usePersonalContacts } from "../hooks/usePersonalData";
+import Icon from "../components/Icon";
+import { formatCountdown, smsLink, toTel } from "../utils";
+import { CHECKIN_EXTEND_MINUTES, CHECKIN_PRESETS } from "../data/options";
+
+const ALERT_MESSAGE = "لم أؤكد سلامتي في تطبيق ساعدني بعد انتهاء المؤقت. أرجو أن تتصل بي أو تطمئن عليّ.";
+
+export default function CheckInPage() {
+  const { deadline, remainingMs, expired, start, confirm, extend } = useCheckIn();
+  const { contacts } = usePersonalContacts();
+  const { record } = useActivityLog();
+  const headingRef = useRef(null);
+
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
+
+  const handleStart = (minutes) => {
+    start(minutes);
+    record("checkin", `مؤقت ${minutes} دقيقة`);
+  };
+
+  const active = deadline !== null && !expired;
+
+  return (
+    <section className="mx-auto max-w-3xl space-y-6 px-4 py-8">
+      <h1 ref={headingRef} tabIndex={-1} className="text-3xl font-black text-stone-900 outline-none">
+        أنا بخير؟
+      </h1>
+
+      {!deadline && (
+        <div className="space-y-5 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+          <p className="text-stone-700">
+            عند خروجك لمكان غير مألوف أو سفر أو عمل ليلي، اختر مدة. إن لم تؤكد سلامتك قبل انتهائها، يهتز جهازك وتظهر لك جهات الاتصال فوراً.
+          </p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {CHECKIN_PRESETS.map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => handleStart(m)}
+                className="flex h-20 cursor-pointer flex-col items-center justify-center rounded-2xl border border-stone-300 bg-white font-bold text-stone-900 transition hover:border-sos hover:bg-rose-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-100"
+              >
+                <span className="text-2xl">{m}</span>
+                <span className="text-xs font-semibold text-stone-600">دقيقة</span>
+              </button>
+            ))}
+          </div>
+          {/* <p className="text-xs text-stone-500">
+            هذا تذكير على جهازك فقط ويحتاج بقاء التطبيق مفتوحًا. لا يُرسل تنبيه تلقائي إلى أي شخص.
+          </p> */}
+        </div>
+      )}
+
+      {active && (
+        <div className="space-y-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center shadow-sm">
+          <p className="font-semibold text-emerald-800">المؤقت يعمل</p>
+          <p dir="ltr" className="font-mono text-6xl font-black tabular-nums text-stone-900">
+            {formatCountdown(remainingMs)}
+          </p>
+          <button
+            type="button"
+            onClick={confirm}
+            className="inline-flex h-14 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-emerald-600 text-lg font-bold text-white shadow-sm transition hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+          >
+            <Icon name="check" className="size-5" />
+            أنا بخير، أوقف المؤقت
+          </button>
+          <button
+            type="button"
+            onClick={() => extend(CHECKIN_EXTEND_MINUTES)}
+            className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-white font-semibold text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+          >
+            <Icon name="plus" className="size-4" />
+            تمديد {CHECKIN_EXTEND_MINUTES} دقيقة
+          </button>
+        </div>
+      )}
+
+      {expired && (
+        <div role="alert" className="space-y-5 rounded-2xl border-2 border-rose-500 bg-rose-50 p-6 shadow-lg">
+          <div className="flex items-start gap-3">
+            <Icon name="alert" className="mt-1 size-7 shrink-0 text-rose-700" />
+            <div>
+              <p className="text-xl font-black text-rose-800">انتهى الوقت دون تأكيد سلامتك</p>
+              <p className="mt-1 text-sm text-rose-900">اتصل بمن تثق بهم الآن، أو اطلب المساعدة الرسمية.</p>
+            </div>
+          </div>
+
+          {contacts.length > 0 && (
+            <ul className="grid gap-3">
+              {contacts.map((c) => (
+                <li key={c.id}>
+                  <div className="flex gap-2">
+                    <a
+                      href={toTel(c.phone)}
+                      onClick={() => record("call", c.name)}
+                      aria-label={`اتصل بـ${c.name}`}
+                      className="flex min-h-14 flex-1 items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 font-bold text-stone-900 shadow-sm ring-1 ring-rose-200 transition hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-300"
+                    >
+                      <span>اتصل بـ{c.name}</span>
+                      <Icon name="phone" className="size-5 text-emerald-700" />
+                    </a>
+                    <a
+                      href={smsLink(c.phone, ALERT_MESSAGE)}
+                      onClick={() => record("sms", c.name)}
+                      aria-label={`أرسل رسالة اطمئنان إلى ${c.name}`}
+                      className="inline-flex min-h-14 w-14 items-center justify-center rounded-xl bg-white text-stone-800 shadow-sm ring-1 ring-rose-200 hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-300"
+                    >
+                      <Icon name="message" className="size-5" />
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              to="/sos"
+              className="inline-flex h-12 items-center justify-center rounded-xl bg-sos font-bold text-white hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200"
+            >
+              الطوارئ الآن
+            </Link>
+            <button
+              type="button"
+              onClick={confirm}
+              className="inline-flex h-12 cursor-pointer items-center justify-center rounded-xl border border-stone-300 bg-white font-semibold text-stone-800 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+            >
+              أنا بخير الآن
+            </button>
+            <button
+              type="button"
+              onClick={() => extend(CHECKIN_EXTEND_MINUTES)}
+              className="inline-flex h-12 cursor-pointer items-center justify-center rounded-xl border border-stone-300 bg-white font-semibold text-stone-800 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200 sm:col-span-2"
+            >
+              أحتاج {CHECKIN_EXTEND_MINUTES} دقيقة إضافية
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+</file>
+
+<file path="src/pages/ContactsPage.jsx">
+import { useState } from "react";
+import { usePersonalContacts, useMedicalProfile } from "../hooks/usePersonalData";
+import Icon from "../components/Icon";
+import { MAX_PERSONAL_CONTACTS, BLOOD_TYPES, LOG_LABELS } from "../data/options";
+import { isValidPhone, toTel, formatDateTime } from "../utils";
+import { useActivityLog } from "../hooks/useActivityLog";
+
+const INPUT =
+  "h-12 w-full rounded-xl border border-stone-300 bg-white px-4 text-stone-900 placeholder:text-stone-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-rose-100";
+const TEXTAREA =
+  "min-h-20 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-rose-100";
+
+const EMPTY_DRAFT = { name: "", relation: "", phone: "" };
+
+export default function ContactsPage() {
+  const { contacts, addContact, removeContact } = usePersonalContacts();
+  const { profile, saveProfile } = useMedicalProfile();
+  const { log, clear: clearLog } = useActivityLog();
+
+  const [draft, setDraft] = useState(EMPTY_DRAFT);
+  const [error, setError] = useState("");
+
+  const [form, setForm] = useState(profile);
+  const [saved, setSaved] = useState(false);
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    if (contacts.length >= MAX_PERSONAL_CONTACTS) {
+      setError(`الحد الأقصى ${MAX_PERSONAL_CONTACTS} جهات`);
+      return;
+    }
+    if (!draft.name.trim()) {
+      setError("اكتب اسم الشخص");
+      return;
+    }
+    if (!isValidPhone(draft.phone)) {
+      setError("اكتب رقم هاتف صحيح");
+      return;
+    }
+    addContact({
+      name: draft.name.trim(),
+      relation: draft.relation.trim(),
+      phone: draft.phone.trim(),
+    });
+    setDraft(EMPTY_DRAFT);
+    setError("");
+  };
+
+  const handleSaveProfile = (e) => {
+    e.preventDefault();
+    saveProfile(form);
+    setSaved(true);
+  };
+
+  const updateForm = (key) => (e) => {
+    setSaved(false);
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+  };
+
+  return (
+    <section className="mx-auto max-w-3xl space-y-8 px-4 py-8">
+      <header>
+        <h1 className="text-3xl font-black text-stone-900">جهاتي</h1>
+        {/* <p className="mt-1 text-stone-600">
+          بياناتك محفوظة على هذا الجهاز فقط، ولا تُرسل إلى أي جهة.
+        </p> */}
+      </header>
+
+      {/* جهات الطوارئ الشخصية */}
+      <div className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <div>
+          <h2 className="font-bold text-stone-900">أشخاص تثق بهم</h2>
+          <p className="text-sm text-stone-600">
+            تظهر أولاً في شاشة الطوارئ ({contacts.length} من {MAX_PERSONAL_CONTACTS})
+          </p>
+        </div>
+
+        {contacts.length > 0 && (
+          <ul className="divide-y divide-stone-100">
+            {contacts.map((c) => (
+              <li key={c.id} className="flex items-center justify-between gap-3 py-3">
+                <div className="min-w-0">
+                  <p className="truncate font-bold text-stone-900">
+                    {c.name}
+                    {c.relation && <span className="ms-2 text-sm font-normal text-stone-600">({c.relation})</span>}
+                  </p>
+                  <p dir="ltr" className="font-mono text-sm text-stone-700">{c.phone}</p>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  <a
+                    href={toTel(c.phone)}
+                    aria-label={`اتصل بـ${c.name}`}
+                    className="inline-flex size-11 items-center justify-center rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+                  >
+                    <Icon name="phone" className="size-5" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => removeContact(c.id)}
+                    aria-label={`حذف ${c.name}`}
+                    className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl border border-stone-300 text-stone-700 hover:bg-rose-50 hover:text-rose-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-200"
+                  >
+                    <Icon name="trash" className="size-5" />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {contacts.length < MAX_PERSONAL_CONTACTS && (
+          <form onSubmit={handleAdd} noValidate className="grid gap-3 border-t border-stone-100 pt-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-1.5 block text-sm font-medium text-stone-700">الاسم</span>
+              <input className={INPUT} value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} placeholder="مثال: أمي" />
+            </label>
+            <label className="block">
+              <span className="mb-1.5 block text-sm font-medium text-stone-700">صلة القرابة (اختياري)</span>
+              <input className={INPUT} value={draft.relation} onChange={(e) => setDraft({ ...draft, relation: e.target.value })} placeholder="مثال: الأم" />
+            </label>
+            <label className="block sm:col-span-2">
+              <span className="mb-1.5 block text-sm font-medium text-stone-700">رقم الهاتف</span>
+              <input
+                className={INPUT}
+                dir="ltr"
+                inputMode="tel"
+                value={draft.phone}
+                onChange={(e) => setDraft({ ...draft, phone: e.target.value })}
+                placeholder="+249 ..."
+              />
+            </label>
+            {error && (
+              <p role="alert" className="text-sm font-semibold text-rose-700 sm:col-span-2">
+                {error}
+              </p>
+            )}
+            <button
+              type="submit"
+              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-stone-900 font-bold text-white hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-stone-300 sm:col-span-2"
+            >
+              <Icon name="plus" className="size-5" />
+              إضافة الشخص
+            </button>
+          </form>
+        )}
+      </div>
+
+      {/* سجل الإجراءات على هذا الجهاز */}
+      <div className="space-y-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <div className="flex items-center justify-between">
+          <h2 className="font-bold text-stone-900">سجل الطوارئ على هذا الجهاز</h2>
+          {log.length > 0 && (
+            <button
+              type="button"
+              onClick={clearLog}
+              className="cursor-pointer text-sm font-semibold text-rose-700 hover:underline"
+            >
+              مسح السجل
+            </button>
+          )}
+        </div>
+        {log.length === 0 ? (
+          <p className="text-sm text-stone-600">لا توجد إجراءات مسجّلة بعد.</p>
+        ) : (
+          <ul className="divide-y divide-stone-100">
+            {log.slice(0, 10).map((entry) => (
+              <li key={entry.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
+                <span className="font-semibold text-stone-900">
+                  {LOG_LABELS[entry.type] ?? entry.type}: {entry.label}
+                </span>
+                <time dateTime={new Date(entry.at).toISOString()} className="shrink-0 text-xs text-stone-600">
+                  {formatDateTime(entry.at)}
+                </time>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <form onSubmit={handleSaveProfile} className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <div>
+          <h2 className="font-bold text-stone-900">بطاقتي الطبية</h2>
+          <p className="text-sm text-stone-600">تُعرض للمسعفين في شاشة الطوارئ. اكتب ما تعرفه فقط، والباقي اختياري.</p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium text-stone-700">الاسم الكامل</span>
+            <input className={INPUT} value={form.name} onChange={updateForm("name")} />
+          </label>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium text-stone-700">فصيلة الدم</span>
+            <select className={INPUT} value={form.bloodType} onChange={updateForm("bloodType")}>
+              <option value="">غير معروفة</option>
+              {BLOOD_TYPES.map((b) => (
+                <option key={b} value={b}>{b}</option>
+              ))}
+            </select>
+          </label>
+          <label className="block sm:col-span-2">
+            <span className="mb-1.5 block text-sm font-medium text-stone-700">الحساسية</span>
+            <textarea className={TEXTAREA} value={form.allergies} onChange={updateForm("allergies")} placeholder="مثال: البنسلين، المكسرات" />
+          </label>
+          <label className="block sm:col-span-2">
+            <span className="mb-1.5 block text-sm font-medium text-stone-700">حالات مزمنة</span>
+            <textarea className={TEXTAREA} value={form.conditions} onChange={updateForm("conditions")} placeholder="مثال: السكري، الضغط" />
+          </label>
+          <label className="block sm:col-span-2">
+            <span className="mb-1.5 block text-sm font-medium text-stone-700">أدوية مستمرة</span>
+            <textarea className={TEXTAREA} value={form.medications} onChange={updateForm("medications")} placeholder="مثال: الإنسولين صباحًا" />
+          </label>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-sos px-6 font-bold text-white hover:bg-sos-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200"
+          >
+            <Icon name="save" className="size-5" />
+            حفظ البطاقة
+          </button>
+          {saved && (
+            <span role="status" className="text-sm font-semibold text-emerald-700">
+              تم الحفظ
+            </span>
+          )}
+        </div>
+      </form>
+    </section>
+  );
+}
+</file>
+
+<file path="src/pages/HomePage.jsx">
+import { useState } from "react";
+import { useEmergencyTypes } from "../hooks/useEmergencyTypes";
+import SosButton from "../components/SosButton";
+import TypeCard from "../components/TypeCard";
+// import Disclaimer from "../components/Disclaimer";
+import StateMessage from "../components/StateMessage";
+import Icon from "../components/Icon";
+import InstallButton from "../components/InstallButton";
+import { Link } from "react-router-dom";
+import { usePersonalContacts, useMedicalProfile } from "../hooks/usePersonalData";
+import { matchesQuery } from "../utils";
+
+// الصفحة الرئيسية: زر SOS، ثم بحث وخيارات الطوارئ
+export default function HomePage() {
+  const { status, data } = useEmergencyTypes();
+  const [query, setQuery] = useState("");
+
+  const { contacts } = usePersonalContacts();
+  const { profile } = useMedicalProfile();
+
+  // البحث يتجاهل الهمزات والتشكيل ويشمل كلمات مفتاحية (مثل: عقرب، موتر، نار)
+  const filtered = data.filter((t) => matchesQuery(t, query));
+
+  // تذكير بالتجهيز المسبق: لا تُفيد الميزات الشخصية إلا إن أُعدّت قبل الطوارئ
+  const hasMedical = Boolean(profile.bloodType || profile.allergies || profile.conditions || profile.medications);
+  const needsSetup = contacts.length === 0 || !hasMedical;
+
+  return (
+    <>
+      <section className="relative overflow-hidden px-4 pb-10 pt-10 text-center">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-72 max-w-xl rounded-full bg-rose-200/40 blur-3xl"
+        />
+        <div className="relative">
+          {/* <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-sos shadow-sm ring-1 ring-stone-200">
+            <span className="size-1.5 rounded-full bg-sos" />
+            تحدٍّ واقعي من السودان
+          </p> */}
+          <h1 className="mt-4 text-4xl font-black text-stone-900 sm:text-5xl">ساعدني | SOS</h1>
+          <p className="mt-2 text-stone-600">الوصول السريع للمساعدة وقت الطوارئ</p>
+          <SosButton />
+          <p className="mt-6 text-sm text-stone-600">اضغط الزر لفتح الاتصال السريع بالإسعاف والشرطة والإطفاء</p>
+          <InstallButton />
+        </div>
+      </section>
+
+      {needsSetup && (
+        <section className="mx-auto max-w-3xl px-4 pb-6">
+          <Link
+            to="/contacts"
+            className="flex items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 transition hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+          >
+            <Icon name="user" className="size-6 shrink-0" />
+            <span className="min-w-0 flex-1">
+              <span className="block font-bold">جهّز نفسك قبل أن تحتاج</span>
+              <span className="block text-sm">
+                أضف شخصًا تثق به{!hasMedical && " وبطاقتك الطبية"}؛ يأخذ دقيقة، ويوفّر وقتك وقت الطوارئ.
+              </span>
+            </span>
+            <Icon name="chevron" className="size-5 shrink-0" />
+          </Link>
+        </section>
+      )}
+
+      <section id="types" className="mx-auto max-w-3xl scroll-mt-20 px-4 pb-14">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-xl font-bold text-stone-900">ما نوع الطوارئ؟</h2>
+          <label className="relative block sm:w-64">
+            <span className="sr-only">ابحث عن نوع الطوارئ</span>
+            <Icon name="search" className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-stone-500" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="ابحث، مثل: حريق"
+              className="h-11 w-full rounded-xl border border-stone-300 bg-white ps-10 pe-4 text-stone-900 placeholder:text-stone-500 focus:border-sos focus:outline-none focus:ring-4 focus:ring-rose-100"
+            />
+          </label>
+        </div>
+
+        {status === "loading" && (
+          <ul className="grid gap-3 sm:grid-cols-2" aria-label="جاري التحميل">
+            {[0, 1, 2, 3].map((i) => (
+              <li key={i} className="h-20 animate-pulse rounded-2xl bg-stone-200/70" />
+            ))}
+          </ul>
+        )}
+
+        {status === "error" && (
+          <StateMessage tone="error" title="تعذّر تحميل خيارات الطوارئ" hint="حاول تحديث الصفحة." />
+        )}
+
+        {status === "ready" && filtered.length > 0 && (
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {filtered.map((type) => (
+              <TypeCard key={type.id} type={type} />
+            ))}
+          </ul>
+        )}
+
+        {status === "ready" && filtered.length === 0 && (
+          <StateMessage title="لا توجد نتائج مطابقة" hint="جرّب كلمة أخرى، أو اضغط SOS للاتصال السريع." />
+        )}
+
+        {/* <Disclaimer /> */}
+      </section>
+    </>
+  );
+}
+</file>
+
+<file path="index.html">
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="application-name" content="ساعدني | SOS" />
+    <meta name="apple-mobile-web-app-title" content="ساعدني" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#dc2626" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Arabic" />
+    <meta name="description" content="ساعدني SOS يساعدك على الوصول السريع للمساعدة وقت الطوارئ وإرسال موقعك وجهات الاتصال الموثوقة." />
+    <meta name="keywords" content="ساعدني, SOS, طوارئ, استغاثة, موقع الطوارئ, جهات اتصال الطوارئ" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_AR" />
+    <meta property="og:site_name" content="ساعدني | SOS" />
+    <meta property="og:title" content="ساعدني | SOS" />
+    <meta property="og:description" content="الوصول السريع للمساعدة وقت الطوارئ" />
+    <meta property="og:image" content="/icon-512.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ساعدني | SOS" />
+    <meta name="twitter:description" content="الوصول السريع للمساعدة وقت الطوارئ" />
+    <meta name="twitter:image" content="/icon-512.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>ساعدني | SOS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+</files>

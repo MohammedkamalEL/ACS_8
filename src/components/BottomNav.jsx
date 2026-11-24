@@ -7,7 +7,7 @@ export default function BottomNav() {
   return (
     <nav
       aria-label="التنقل الرئيسي"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <ul className="mx-auto grid max-w-md grid-cols-4">
         {NAV_ITEMS.map((item) => (
@@ -17,8 +17,8 @@ export default function BottomNav() {
               end={item.end}
               className={({ isActive }) =>
                 cx(
-                  "flex h-16 flex-col items-center justify-center gap-1 text-[11px] font-semibold transition",
-                  isActive ? "text-sos" : "text-stone-600 hover:text-stone-900"
+                  "flex h-16 flex-col items-center justify-center gap-1 border-t-2 text-[11px] ",
+                  isActive ? "border-sos font-bold text-sos" : "border-transparent text-gray-600"
                 )
               }
             >

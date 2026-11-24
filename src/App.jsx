@@ -5,6 +5,7 @@ import BottomNav from "./components/BottomNav";
 import OfflineBanner from "./components/OfflineBanner";
 import CheckInBanner from "./components/CheckInBanner";
 import ErrorBoundary from "./components/ErrorBoundary";
+// import Disclaimer from "./components/Disclaimer";
 import HomePage from "./pages/HomePage";
 import SosPage from "./pages/SosPage";
 import CheckInPage from "./pages/CheckInPage";
@@ -30,10 +31,10 @@ export default function App() {
   }, [pathname, hash]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen " style={{ backgroundColor: "#f7f5f0" }}>
       <a
         href="#main"
-        className="sr-only z-50 rounded-lg bg-white px-4 py-2 font-semibold text-stone-900 shadow focus:not-sr-only focus:fixed focus:start-4 focus:top-4"
+        className="sr-only z-50 rounded-lg bg-white px-4 py-2 font-semibold text-gray-900 shadow focus:not-sr-only focus:fixed focus:start-4 focus:top-4"
       >
         تخطٍّ إلى المحتوى
       </a>
@@ -51,6 +52,9 @@ export default function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </ErrorBoundary>
+        <footer className="mx-auto max-w-3xl px-4 pb-6">
+          {/* <Disclaimer compact /> */}
+        </footer>
       </main>
       <BottomNav />
     </div>

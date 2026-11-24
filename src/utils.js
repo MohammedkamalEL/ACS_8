@@ -1,15 +1,5 @@
 export const cx = (...classes) => classes.filter(Boolean).join(" ");
 
-export const TONE_CLASSES = {
-  rose: { chip: "bg-rose-50 text-rose-600 ring-rose-100", bar: "group-hover:border-rose-300" },
-  orange: { chip: "bg-orange-50 text-orange-600 ring-orange-100", bar: "group-hover:border-orange-300" },
-  sky: { chip: "bg-sky-50 text-sky-600 ring-sky-100", bar: "group-hover:border-sky-300" },
-  violet: { chip: "bg-violet-50 text-violet-600 ring-violet-100", bar: "group-hover:border-violet-300" },
-  emerald: { chip: "bg-emerald-50 text-emerald-600 ring-emerald-100", bar: "group-hover:border-emerald-300" },
-  amber: { chip: "bg-amber-50 text-amber-600 ring-amber-100", bar: "group-hover:border-amber-300" },
-  lime: { chip: "bg-lime-50 text-lime-700 ring-lime-100", bar: "group-hover:border-lime-300" },
-};
-
 export const normalizeArabic = (text = "") =>
   text
     .toLowerCase()
@@ -19,7 +9,6 @@ export const normalizeArabic = (text = "") =>
     .replace(/ى/g, "ي")
     .trim();
 
-// هل يطابق نوع الطوارئ كلمة البحث؟ (العنوان والوصف والكلمات المفتاحية)
 export const matchesQuery = (type, query) => {
   const term = normalizeArabic(query);
   if (!term) return true;

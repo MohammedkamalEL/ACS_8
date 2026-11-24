@@ -1,13 +1,12 @@
-import Icon from "./Icon";
 import { cx } from "../utils";
 
 export default function Brand({ className }) {
   return (
-    <div className={cx("flex items-center gap-2.5", className)}>
-      <span className="grid size-9 place-items-center rounded-xl bg-sos text-white shadow-sm">
-        <Icon name="shield" className="size-5" />
+    <span className={cx("flex items-baseline gap-2 text-lg font-bold text-gray-900", className)}>
+      ساعدني
+      <span dir="ltr" className="font-mono text-sm text-sos">
+        sos
       </span>
-      <span className="text-lg font-black tracking-tight text-stone-900">ساعدني</span>
-    </div>
+    </span>
   );
 }
