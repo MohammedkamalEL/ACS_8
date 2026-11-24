@@ -50,9 +50,9 @@ export default function CheckInPage() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-stone-500">
+          {/* <p className="text-xs text-stone-500">
             هذا تذكير على جهازك فقط ويحتاج بقاء التطبيق مفتوحًا. لا يُرسل تنبيه تلقائي إلى أي شخص.
-          </p>
+          </p> */}
         </div>
       )}
 

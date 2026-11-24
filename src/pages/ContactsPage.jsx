@@ -61,9 +61,9 @@ export default function ContactsPage() {
     <section className="mx-auto max-w-3xl space-y-8 px-4 py-8">
       <header>
         <h1 className="text-3xl font-black text-stone-900">جهاتي</h1>
-        <p className="mt-1 text-stone-600">
+        {/* <p className="mt-1 text-stone-600">
           بياناتك محفوظة على هذا الجهاز فقط، ولا تُرسل إلى أي جهة.
-        </p>
+        </p> */}
       </header>
 
       {/* جهات الطوارئ الشخصية */}
